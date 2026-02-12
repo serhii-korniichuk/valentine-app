@@ -1,4 +1,5 @@
 import screenStyles from './shared/ScreenCard.module.scss'
+import ScreenCard from './shared/ScreenCard'
 
 type HomeScreenProps = {
   onStart: () => void
@@ -6,7 +7,7 @@ type HomeScreenProps = {
 
 const HomeScreen = ({ onStart }: HomeScreenProps) => {
   return (
-    <section className={screenStyles.screenCard}>
+    <ScreenCard>
       <p className={screenStyles.badge}>Valentine quiz</p>
       <h1 className={screenStyles.heading}>Для найкоханішої</h1>
       <p className={screenStyles.leadText}>
@@ -15,7 +16,7 @@ const HomeScreen = ({ onStart }: HomeScreenProps) => {
       <button className={screenStyles.primaryButton} type="button" onClick={onStart}>
         Почати нашу історію
       </button>
-    </section>
+    </ScreenCard>
   )
 }
 

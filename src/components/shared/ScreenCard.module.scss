@@ -1,11 +1,24 @@
+@use '../../styles/glass' as glass;
+
 .screenCard {
+  @include glass.surface(1.6rem, 0.7, 16px);
+  @include glass.blobs;
+
   width: min(100%, 46rem);
-  border-radius: 1.6rem;
-  border: 1px solid #ffc8dd;
-  background: linear-gradient(165deg, #fff4f8 0%, #ffe6ef 100%);
-  box-shadow: 0 20px 50px rgba(208, 104, 153, 0.23);
-  padding: clamp(1.15rem, 4vw, 2rem);
   animation: cardIn 380ms ease-out;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  border-radius: 1.25rem;
+  padding: clamp(1.15rem, 4vw, 2rem);
+  background: linear-gradient(
+    160deg,
+    rgba(255, 252, 254, 0.26) 0%,
+    rgba(255, 241, 248, var(--glass-accent-alpha, 0.08)) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.32);
 }
 
 .badge {

@@ -1,6 +1,8 @@
 import localStyles from './StageScreen.module.scss'
 import screenStyles from './shared/ScreenCard.module.scss'
+import classNames from 'classnames'
 import type { QuizStage } from '../types/quiz'
+import ScreenCard from './shared/ScreenCard'
 import SoundToggle from './SoundToggle'
 import AudioStage from './stages/AudioStage'
 import CatchStage from './stages/CatchStage'
@@ -21,9 +23,9 @@ type StageScreenProps = {
 
 const StageScreen = ({ stage, onComplete, soundEnabled, onToggleSound, onTap, onAudioPlay }: StageScreenProps) => {
   return (
-    <section className={screenStyles.screenCard}>
+    <ScreenCard>
       <div className={localStyles.cardHead}>
-        <p className={`${screenStyles.badge} ${localStyles.badgeReset}`}>{stage.title}</p>
+        <p className={classNames(screenStyles.badge, localStyles.badgeReset)}>{stage.title}</p>
         <SoundToggle enabled={soundEnabled} onToggle={onToggleSound} />
       </div>
 
@@ -66,7 +68,7 @@ const StageScreen = ({ stage, onComplete, soundEnabled, onToggleSound, onTap, on
       {stage.kind === 'audio' && (
         <AudioStage prompt={stage.prompt} caption={stage.caption} onPlay={onAudioPlay} onComplete={onComplete} />
       )}
-    </section>
+    </ScreenCard>
   )
 }
 

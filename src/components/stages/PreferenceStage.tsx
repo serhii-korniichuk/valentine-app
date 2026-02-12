@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import classNames from 'classnames'
 import stageStyles from './StageCommon.module.scss'
 
 type PreferenceStageProps = {
@@ -26,7 +27,9 @@ const PreferenceStage = ({ prompt, helper, options, onSelect, onTap }: Preferenc
         {options.map((option) => (
           <button
             key={option}
-            className={`${stageStyles.answerButton} ${selected === option ? stageStyles.answerButtonSelected : ''}`.trim()}
+            className={classNames(stageStyles.answerButton, {
+              [stageStyles.answerButtonSelected]: selected === option,
+            })}
             type="button"
             onClick={() => handleClick(option)}
           >

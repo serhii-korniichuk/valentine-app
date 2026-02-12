@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import classNames from 'classnames'
 import styles from './App.module.scss'
 import BackgroundHearts from './components/BackgroundHearts'
 import ConfettiBurst from './components/ConfettiBurst'
@@ -88,7 +89,7 @@ const App = () => {
   const currentProgress = mode === 'stages' ? currentStage : totalStages
 
   return (
-    <main className={`${styles.appShell} ${mode === 'home' ? styles.isHome : ''}`.trim()}>
+    <main className={classNames(styles.appShell, { [styles.isHome]: mode === 'home' })}>
       <BackgroundHearts />
       <ConfettiBurst trigger={confettiTrigger} />
 

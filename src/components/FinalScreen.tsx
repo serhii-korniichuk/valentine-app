@@ -1,5 +1,6 @@
 import localStyles from './FinalScreen.module.scss'
 import screenStyles from './shared/ScreenCard.module.scss'
+import ScreenCard from './shared/ScreenCard'
 
 type FinalScreenProps = {
   hearts: string[]
@@ -9,7 +10,7 @@ type FinalScreenProps = {
 
 const FinalScreen = ({ hearts, onReward, rewardOpened }: FinalScreenProps) => {
   return (
-    <section className={`${screenStyles.screenCard} ${localStyles.finalCard}`}>
+    <ScreenCard className={localStyles.finalCard}>
       <p className={screenStyles.badge}>Фінал</p>
       <h2 className={screenStyles.heading}>Ти відкрила всі 10 сердець ❤</h2>
       <p className={screenStyles.leadText}>
@@ -34,7 +35,7 @@ const FinalScreen = ({ hearts, onReward, rewardOpened }: FinalScreenProps) => {
           <p>Промокод: LOVE-FOREVER</p>
         </div>
       )}
-    </section>
+    </ScreenCard>
   )
 }
 
