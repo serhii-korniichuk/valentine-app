@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import screenStyles from '../shared/ScreenCard.module.scss'
+import stageStyles from './StageCommon.module.scss'
 
 type AudioStageProps = {
   prompt: string
@@ -16,13 +18,13 @@ const AudioStage = ({ prompt, caption, onPlay, onComplete }: AudioStageProps) =>
   }
 
   return (
-    <div className="stage-body">
-      <p className="stage-prompt">{prompt}</p>
-      <button className="primary-btn" type="button" onClick={handlePlay}>
+    <div className={stageStyles.stageBody}>
+      <p className={stageStyles.stagePrompt}>{prompt}</p>
+      <button className={screenStyles.primaryButton} type="button" onClick={handlePlay}>
         Відтворити
       </button>
-      {played && <p className="audio-caption">{caption}</p>}
-      <button className="secondary-btn" type="button" onClick={onComplete}>
+      {played && <p className={stageStyles.audioCaption}>{caption}</p>}
+      <button className={screenStyles.secondaryButton} type="button" onClick={onComplete}>
         Продовжити
       </button>
     </div>

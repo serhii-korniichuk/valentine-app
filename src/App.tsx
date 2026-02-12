@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
-import ConfettiBurst from './components/ConfettiBurst'
+import styles from './App.module.scss'
 import BackgroundHearts from './components/BackgroundHearts'
+import ConfettiBurst from './components/ConfettiBurst'
 import FinalScreen from './components/FinalScreen'
 import HomeScreen from './components/HomeScreen'
 import ProgressBar from './components/ProgressBar'
@@ -87,7 +88,7 @@ const App = () => {
   const currentProgress = mode === 'stages' ? currentStage : totalStages
 
   return (
-    <main className={`app-shell ${mode === 'home' ? 'is-home' : ''}`}>
+    <main className={`${styles.appShell} ${mode === 'home' ? styles.isHome : ''}`.trim()}>
       <BackgroundHearts />
       <ConfettiBurst trigger={confettiTrigger} />
 
@@ -111,7 +112,11 @@ const App = () => {
       )}
 
       {mode === 'final' && (
-        <FinalScreen hearts={collectedHearts.length === 0 ? allRewardLabels : collectedHearts} onReward={openReward} rewardOpened={rewardOpened} />
+        <FinalScreen
+          hearts={collectedHearts.length === 0 ? allRewardLabels : collectedHearts}
+          onReward={openReward}
+          rewardOpened={rewardOpened}
+        />
       )}
     </main>
   )

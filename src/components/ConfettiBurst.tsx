@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import styles from './ConfettiBurst.module.scss'
 
 type ConfettiBurstProps = {
   trigger: number
@@ -44,11 +45,11 @@ const ConfettiBurst = ({ trigger }: ConfettiBurstProps) => {
   }
 
   return (
-    <div className="confetti-layer" aria-hidden>
+    <div className={styles.confettiLayer} aria-hidden>
       {pieces.map((piece) => (
         <span
           key={piece.id}
-          className="confetti-piece"
+          className={styles.confettiPiece}
           style={{
             left: piece.left,
             animationDelay: piece.delay,

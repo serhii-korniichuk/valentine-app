@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
+import screenStyles from '../shared/ScreenCard.module.scss'
+import stageStyles from './StageCommon.module.scss'
 
 type DateStageProps = {
   prompt: string
@@ -18,16 +20,16 @@ const DateStage = ({ prompt, hint, onComplete, onTap }: DateStageProps) => {
   }
 
   return (
-    <form className="stage-body" onSubmit={submit}>
-      <p className="stage-prompt">{prompt}</p>
-      <p className="helper-text">{hint}</p>
+    <form className={stageStyles.stageBody} onSubmit={submit}>
+      <p className={stageStyles.stagePrompt}>{prompt}</p>
+      <p className={stageStyles.helperText}>{hint}</p>
       <input
-        className="date-input"
+        className={stageStyles.dateInput}
         placeholder="Наприклад: 14.02"
         value={value}
         onChange={(event) => setValue(event.target.value)}
       />
-      <button className="primary-btn" type="submit">
+      <button className={screenStyles.primaryButton} type="submit">
         Підтвердити
       </button>
     </form>

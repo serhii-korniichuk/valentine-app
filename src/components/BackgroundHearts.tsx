@@ -1,3 +1,5 @@
+import styles from './BackgroundHearts.module.scss'
+
 const hearts = Array.from({ length: 14 }, (_, index) => ({
   id: index,
   left: `${Math.round((index / 14) * 100)}%`,
@@ -7,11 +9,11 @@ const hearts = Array.from({ length: 14 }, (_, index) => ({
 
 const BackgroundHearts = () => {
   return (
-    <div className="background-hearts" aria-hidden>
+    <div className={styles.backgroundHearts} aria-hidden>
       {hearts.map((heart) => (
         <span
           key={heart.id}
-          className="background-heart"
+          className={styles.backgroundHeart}
           style={{
             left: heart.left,
             animationDelay: heart.delay,

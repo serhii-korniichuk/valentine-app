@@ -1,3 +1,5 @@
+import stageStyles from './StageCommon.module.scss'
+
 type TruthStageProps = {
   prompt: string
   statement: string
@@ -12,14 +14,14 @@ const TruthStage = ({ prompt, statement, onComplete, onTap }: TruthStageProps) =
   }
 
   return (
-    <div className="stage-body">
-      <p className="stage-prompt">{prompt}</p>
-      <p className="truth-statement">{statement}</p>
-      <div className="answer-grid answer-grid-two">
-        <button className="answer-btn" type="button" onClick={handleAnswer}>
+    <div className={stageStyles.stageBody}>
+      <p className={stageStyles.stagePrompt}>{prompt}</p>
+      <p className={stageStyles.truthStatement}>{statement}</p>
+      <div className={`${stageStyles.answerGrid} ${stageStyles.answerGridTwo}`}>
+        <button className={stageStyles.answerButton} type="button" onClick={handleAnswer}>
           Правда
         </button>
-        <button className="answer-btn" type="button" onClick={handleAnswer}>
+        <button className={stageStyles.answerButton} type="button" onClick={handleAnswer}>
           Неправда (але мило)
         </button>
       </div>

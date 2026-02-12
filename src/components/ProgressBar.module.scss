@@ -1,0 +1,31 @@
+.progressWrap {
+  width: min(100%, 46rem);
+  padding: 0.85rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid #ffcfe2;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.progressLabelRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #944669;
+  margin-bottom: 0.45rem;
+}
+
+.progressTrack {
+  width: 100%;
+  height: 0.65rem;
+  border-radius: 999px;
+  background: #ffdbe9;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #ff5c9f 0%, #ff91bc 100%);
+  transition: width 280ms ease;
+}

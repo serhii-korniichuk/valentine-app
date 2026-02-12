@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import stageStyles from './StageCommon.module.scss'
 
 type PuzzleStageProps = {
   prompt: string
@@ -36,17 +37,17 @@ const PuzzleStage = ({ prompt, words, targetPhrase, onComplete, onTap }: PuzzleS
   }
 
   return (
-    <div className="stage-body">
-      <p className="stage-prompt">{prompt}</p>
-      <p className="puzzle-line">{picked.join(' ') || '...'} </p>
-      <div className="answer-grid">
+    <div className={stageStyles.stageBody}>
+      <p className={stageStyles.stagePrompt}>{prompt}</p>
+      <p className={stageStyles.puzzleLine}>{picked.join(' ') || '...'}</p>
+      <div className={stageStyles.answerGrid}>
         {available.map((word) => (
-          <button key={word} className="answer-btn" type="button" onClick={() => chooseWord(word)}>
+          <button key={word} className={stageStyles.answerButton} type="button" onClick={() => chooseWord(word)}>
             {word}
           </button>
         ))}
       </div>
-      {attempts > 0 && <p className="helper-text">Трохи інакше, але мені все одно подобається твій варіант ❤</p>}
+      {attempts > 0 && <p className={stageStyles.helperText}>Трохи інакше, але мені все одно подобається твій варіант ❤</p>}
     </div>
   )
 }

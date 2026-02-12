@@ -1,0 +1,16 @@
+.appShell {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 1rem;
+  place-items: start center;
+  overflow: hidden;
+}
+
+.isHome {
+  grid-template-rows: 1fr;
+  place-items: center;
+}

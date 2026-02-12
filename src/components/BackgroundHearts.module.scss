@@ -1,0 +1,32 @@
+.backgroundHearts {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.backgroundHeart {
+  position: absolute;
+  bottom: -10%;
+  color: rgba(255, 86, 151, 0.24);
+  font-size: clamp(0.85rem, 2vw, 1.5rem);
+  animation-name: floatHeart;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes floatHeart {
+  from {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.35;
+  }
+
+  to {
+    transform: translateY(-118vh) rotate(160deg);
+    opacity: 0;
+  }
+}

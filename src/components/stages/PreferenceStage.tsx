@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import stageStyles from './StageCommon.module.scss'
 
 type PreferenceStageProps = {
   prompt: string
@@ -18,14 +19,14 @@ const PreferenceStage = ({ prompt, helper, options, onSelect, onTap }: Preferenc
   }
 
   return (
-    <div className="stage-body">
-      <p className="stage-prompt">{prompt}</p>
-      <p className="helper-text">{helper}</p>
-      <div className="answer-grid">
+    <div className={stageStyles.stageBody}>
+      <p className={stageStyles.stagePrompt}>{prompt}</p>
+      <p className={stageStyles.helperText}>{helper}</p>
+      <div className={stageStyles.answerGrid}>
         {options.map((option) => (
           <button
             key={option}
-            className={`answer-btn ${selected === option ? 'is-selected' : ''}`}
+            className={`${stageStyles.answerButton} ${selected === option ? stageStyles.answerButtonSelected : ''}`.trim()}
             type="button"
             onClick={() => handleClick(option)}
           >

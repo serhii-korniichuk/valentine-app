@@ -1,0 +1,28 @@
+.finalCard {
+  text-align: center;
+}
+
+.heartCollection {
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.heartChip {
+  padding: 0.35rem 0.72rem;
+  border-radius: 999px;
+  background: #ffd7e8;
+  color: #8b2f59;
+  font-size: 0.82rem;
+}
+
+.rewardBox {
+  margin-top: 1rem;
+  padding: 0.9rem;
+  border-radius: 1rem;
+  background: #fff;
+  border: 1px solid #ffcbe0;
+  color: #702741;
+}

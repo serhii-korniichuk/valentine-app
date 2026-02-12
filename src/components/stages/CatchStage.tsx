@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import screenStyles from '../shared/ScreenCard.module.scss'
+import stageStyles from './StageCommon.module.scss'
 
 type CatchStageProps = {
   prompt: string
@@ -46,15 +48,15 @@ const CatchStage = ({ prompt, target, onComplete, onTap }: CatchStageProps) => {
   const canFinish = seconds === 0 && score < target
 
   return (
-    <div className="stage-body">
-      <p className="stage-prompt">{prompt}</p>
-      <p className="helper-text">
+    <div className={stageStyles.stageBody}>
+      <p className={stageStyles.stagePrompt}>{prompt}</p>
+      <p className={stageStyles.helperText}>
         Спіймано: {score}/{target} • Час: {seconds}с
       </p>
-      <div className="catch-area">
+      <div className={stageStyles.catchArea}>
         <button
           aria-label="Спіймати сердечко"
-          className="catch-heart"
+          className={stageStyles.catchHeart}
           style={{ left: `${position.x}%`, top: `${position.y}%` }}
           type="button"
           onClick={clickHeart}
@@ -63,7 +65,7 @@ const CatchStage = ({ prompt, target, onComplete, onTap }: CatchStageProps) => {
         </button>
       </div>
       {canFinish && (
-        <button className="primary-btn" type="button" onClick={onComplete}>
+        <button className={screenStyles.primaryButton} type="button" onClick={onComplete}>
           Далі (ти все одно перемогла)
         </button>
       )}
