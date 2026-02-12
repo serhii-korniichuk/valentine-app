@@ -1,9 +1,14 @@
 :root {
-  font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: #3a1126;
-  background: radial-gradient(circle at 10% 5%, #ffd9e8 0%, #ffeef4 38%, #fff8fb 100%);
+  background: radial-gradient(
+    circle at 10% 5%,
+    #ffd9e8 0%,
+    #ffeef4 38%,
+    #fff8fb 100%
+  );
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -34,7 +39,7 @@ input {
   position: relative;
   isolation: isolate;
   min-height: 100vh;
-  padding: 1rem 1rem 2rem;
+  padding: 3rem 1rem;
   display: grid;
   grid-template-rows: auto auto 1fr;
   gap: 1rem;
@@ -186,7 +191,9 @@ h2 {
   border: 0;
   padding: 0.8rem 0.9rem;
   cursor: pointer;
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .answer-btn,
