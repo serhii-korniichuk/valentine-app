@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 
-interface ConfettiBurstProps {
+type ConfettiBurstProps = {
   trigger: number
 }
 
-interface ConfettiPiece {
+type ConfettiPiece = {
   id: string
   left: string
   delay: string
@@ -14,7 +14,7 @@ interface ConfettiPiece {
 
 const PIECE_COUNT = 50
 
-function createPieces(seed: number): ConfettiPiece[] {
+const createPieces = (seed: number): ConfettiPiece[] => {
   return Array.from({ length: PIECE_COUNT }, (_, index) => ({
     id: `${seed}-${index}`,
     left: `${Math.random() * 100}%`,
@@ -24,7 +24,7 @@ function createPieces(seed: number): ConfettiPiece[] {
   }))
 }
 
-function ConfettiBurst({ trigger }: ConfettiBurstProps) {
+const ConfettiBurst = ({ trigger }: ConfettiBurstProps) => {
   const [visible, setVisible] = useState(false)
   const pieces = useMemo(() => createPieces(trigger), [trigger])
 

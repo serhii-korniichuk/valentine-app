@@ -1,10 +1,10 @@
-interface FinalScreenProps {
+type FinalScreenProps = {
   hearts: string[]
   onReward: () => void
   rewardOpened: boolean
 }
 
-function FinalScreen({ hearts, onReward, rewardOpened }: FinalScreenProps) {
+const FinalScreen = ({ hearts, onReward, rewardOpened }: FinalScreenProps) => {
   return (
     <section className="screen-card final-card">
       <p className="badge">Фінал</p>

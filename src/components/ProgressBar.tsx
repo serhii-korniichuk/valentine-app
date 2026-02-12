@@ -1,9 +1,9 @@
-interface ProgressBarProps {
+type ProgressBarProps = {
   current: number
   total: number
 }
 
-function ProgressBar({ current, total }: ProgressBarProps) {
+const ProgressBar = ({ current, total }: ProgressBarProps) => {
   const percent = Math.round((current / total) * 100)
 
   return (

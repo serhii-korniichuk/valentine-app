@@ -1,11 +1,11 @@
-interface TruthStageProps {
+type TruthStageProps = {
   prompt: string
   statement: string
   onComplete: () => void
   onTap: () => void
 }
 
-function TruthStage({ prompt, statement, onComplete, onTap }: TruthStageProps) {
+const TruthStage = ({ prompt, statement, onComplete, onTap }: TruthStageProps) => {
   const handleAnswer = () => {
     onTap()
     onComplete()

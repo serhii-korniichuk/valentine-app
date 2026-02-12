@@ -11,7 +11,7 @@ import { useSound } from './hooks/useSound'
 
 type ViewMode = 'home' | 'stages' | 'final'
 
-function App() {
+const App = () => {
   const [mode, setMode] = useState<ViewMode>('home')
   const [currentStage, setCurrentStage] = useState(0)
   const [collectedHearts, setCollectedHearts] = useState<string[]>([])

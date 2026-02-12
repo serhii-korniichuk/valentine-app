@@ -1,8 +1,8 @@
-interface HomeScreenProps {
+type HomeScreenProps = {
   onStart: () => void
 }
 
-function HomeScreen({ onStart }: HomeScreenProps) {
+const HomeScreen = ({ onStart }: HomeScreenProps) => {
   return (
     <section className="screen-card">
       <p className="badge">Valentine quiz</p>

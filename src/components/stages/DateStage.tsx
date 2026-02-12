@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 
-interface DateStageProps {
+type DateStageProps = {
   prompt: string
   hint: string
   onComplete: () => void
   onTap: () => void
 }
 
-function DateStage({ prompt, hint, onComplete, onTap }: DateStageProps) {
+const DateStage = ({ prompt, hint, onComplete, onTap }: DateStageProps) => {
   const [value, setValue] = useState('')
 
   const submit = (event: FormEvent<HTMLFormElement>) => {

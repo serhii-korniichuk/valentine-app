@@ -7,14 +7,14 @@ import PreferenceStage from './stages/PreferenceStage'
 import PuzzleStage from './stages/PuzzleStage'
 import TruthStage from './stages/TruthStage'
 
-interface StageScreenProps {
+type StageScreenProps = {
   stage: QuizStage
   onComplete: () => void
   onTap: () => void
   onAudioPlay: () => Promise<void>
 }
 
-function StageScreen({ stage, onComplete, onTap, onAudioPlay }: StageScreenProps) {
+const StageScreen = ({ stage, onComplete, onTap, onAudioPlay }: StageScreenProps) => {
   return (
     <section className="screen-card">
       <p className="badge">{stage.title}</p>

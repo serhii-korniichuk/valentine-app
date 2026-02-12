@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-interface PreferenceStageProps {
+type PreferenceStageProps = {
   prompt: string
   helper: string
   options: string[]
@@ -8,7 +8,7 @@ interface PreferenceStageProps {
   onTap: () => void
 }
 
-function PreferenceStage({ prompt, helper, options, onSelect, onTap }: PreferenceStageProps) {
+const PreferenceStage = ({ prompt, helper, options, onSelect, onTap }: PreferenceStageProps) => {
   const [selected, setSelected] = useState<string | null>(null)
 
   const handleClick = (option: string) => {

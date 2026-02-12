@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
-interface AudioStageProps {
+type AudioStageProps = {
   prompt: string
   caption: string
   onPlay: () => Promise<void>
   onComplete: () => void
 }
 
-function AudioStage({ prompt, caption, onPlay, onComplete }: AudioStageProps) {
+const AudioStage = ({ prompt, caption, onPlay, onComplete }: AudioStageProps) => {
   const [played, setPlayed] = useState(false)
 
   const handlePlay = async () => {

@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react'
 
-interface CatchStageProps {
+type CatchStageProps = {
   prompt: string
   target: number
   onComplete: () => void
   onTap: () => void
 }
 
-function nextPosition() {
+const nextPosition = () => {
   return {
     x: 10 + Math.round(Math.random() * 78),
     y: 12 + Math.round(Math.random() * 72),
   }
 }
 
-function CatchStage({ prompt, target, onComplete, onTap }: CatchStageProps) {
+const CatchStage = ({ prompt, target, onComplete, onTap }: CatchStageProps) => {
   const [score, setScore] = useState(0)
   const [seconds, setSeconds] = useState(10)
   const [position, setPosition] = useState(nextPosition)

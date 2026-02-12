@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 
-interface PuzzleStageProps {
+type PuzzleStageProps = {
   prompt: string
   words: string[]
   targetPhrase: string
@@ -8,7 +8,7 @@ interface PuzzleStageProps {
   onTap: () => void
 }
 
-function PuzzleStage({ prompt, words, targetPhrase, onComplete, onTap }: PuzzleStageProps) {
+const PuzzleStage = ({ prompt, words, targetPhrase, onComplete, onTap }: PuzzleStageProps) => {
   const [picked, setPicked] = useState<string[]>([])
   const [attempts, setAttempts] = useState(0)
 

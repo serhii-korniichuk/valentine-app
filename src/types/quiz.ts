@@ -7,7 +7,7 @@ export type StageKind =
   | 'puzzle'
   | 'audio'
 
-export interface StageBase {
+export type StageBase = {
   id: number
   kind: StageKind
   title: string
@@ -15,39 +15,39 @@ export interface StageBase {
   rewardLabel: string
 }
 
-export interface ChoiceStage extends StageBase {
+export type ChoiceStage = StageBase & {
   kind: 'choice'
   options: string[]
 }
 
-export interface TruthStage extends StageBase {
+export type TruthStage = StageBase & {
   kind: 'truth'
   statement: string
 }
 
-export interface CatchStage extends StageBase {
+export type CatchStage = StageBase & {
   kind: 'catch'
   target: number
 }
 
-export interface PreferenceStage extends StageBase {
+export type PreferenceStage = StageBase & {
   kind: 'preference'
   options: string[]
   helper: string
 }
 
-export interface DateStage extends StageBase {
+export type DateStage = StageBase & {
   kind: 'date'
   hint: string
 }
 
-export interface PuzzleStage extends StageBase {
+export type PuzzleStage = StageBase & {
   kind: 'puzzle'
   words: string[]
   targetPhrase: string
 }
 
-export interface AudioStage extends StageBase {
+export type AudioStage = StageBase & {
   kind: 'audio'
   caption: string
 }

@@ -5,7 +5,7 @@ const hearts = Array.from({ length: 14 }, (_, index) => ({
   duration: `${7 + (index % 5)}s`,
 }))
 
-function BackgroundHearts() {
+const BackgroundHearts = () => {
   return (
     <div className="background-hearts" aria-hidden>
       {hearts.map((heart) => (

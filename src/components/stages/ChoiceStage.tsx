@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
-interface ChoiceStageProps {
+type ChoiceStageProps = {
   prompt: string
   options: string[]
   onSelect: () => void
   onTap: () => void
 }
 
-function ChoiceStage({ prompt, options, onSelect, onTap }: ChoiceStageProps) {
+const ChoiceStage = ({ prompt, options, onSelect, onTap }: ChoiceStageProps) => {
   const [selected, setSelected] = useState<string | null>(null)
 
   const handleClick = (option: string) => {
