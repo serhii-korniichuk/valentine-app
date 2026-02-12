@@ -4,7 +4,6 @@ import BackgroundHearts from './components/BackgroundHearts'
 import FinalScreen from './components/FinalScreen'
 import HomeScreen from './components/HomeScreen'
 import ProgressBar from './components/ProgressBar'
-import SoundToggle from './components/SoundToggle'
 import StageScreen from './components/StageScreen'
 import { stages } from './data/stages'
 import { useSound } from './hooks/useSound'
@@ -88,18 +87,9 @@ const App = () => {
   const currentProgress = mode === 'stages' ? currentStage : totalStages
 
   return (
-    <main className="app-shell">
+    <main className={`app-shell ${mode === 'home' ? 'is-home' : ''}`}>
       <BackgroundHearts />
       <ConfettiBurst trigger={confettiTrigger} />
-
-      <div className="top-controls">
-        <SoundToggle
-          enabled={enabled}
-          onToggle={() => {
-            setEnabled(!enabled)
-          }}
-        />
-      </div>
 
       {mode !== 'home' && <ProgressBar current={currentProgress} total={totalStages} />}
 
@@ -109,6 +99,10 @@ const App = () => {
         <StageScreen
           stage={activeStage}
           onComplete={completeStage}
+          soundEnabled={enabled}
+          onToggleSound={() => {
+            setEnabled(!enabled)
+          }}
           onTap={() => {
             void play('tap')
           }}

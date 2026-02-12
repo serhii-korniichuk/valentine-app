@@ -42,19 +42,34 @@ input {
   overflow: hidden;
 }
 
-.top-controls {
-  width: min(100%, 46rem);
-  display: flex;
-  justify-content: flex-end;
+.app-shell.is-home {
+  grid-template-rows: 1fr;
+  place-items: center;
 }
 
 .sound-toggle {
-  border: 1px solid #f2aac6;
-  background: #fff5fa;
-  color: #8f2f5a;
-  border-radius: 999px;
-  padding: 0.45rem 0.9rem;
+  width: 2.7rem;
+  height: 2.7rem;
+  border: 1px solid rgba(143, 47, 90, 0.24);
+  background: rgba(255, 255, 255, 0.3);
+  color: rgba(122, 43, 79, 0.9);
+  border-radius: 50%;
+  padding: 0;
   cursor: pointer;
+  display: grid;
+  place-items: center;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.sound-toggle svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .progress-wrap {
@@ -113,6 +128,17 @@ input {
   font-size: 0.76rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.9rem;
+}
+
+.card-head .badge {
+  margin: 0;
 }
 
 h1,

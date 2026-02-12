@@ -1,4 +1,5 @@
 import type { QuizStage } from '../types/quiz'
+import SoundToggle from './SoundToggle'
 import AudioStage from './stages/AudioStage'
 import CatchStage from './stages/CatchStage'
 import ChoiceStage from './stages/ChoiceStage'
@@ -10,14 +11,19 @@ import TruthStage from './stages/TruthStage'
 type StageScreenProps = {
   stage: QuizStage
   onComplete: () => void
+  soundEnabled: boolean
+  onToggleSound: () => void
   onTap: () => void
   onAudioPlay: () => Promise<void>
 }
 
-const StageScreen = ({ stage, onComplete, onTap, onAudioPlay }: StageScreenProps) => {
+const StageScreen = ({ stage, onComplete, soundEnabled, onToggleSound, onTap, onAudioPlay }: StageScreenProps) => {
   return (
     <section className="screen-card">
-      <p className="badge">{stage.title}</p>
+      <div className="card-head">
+        <p className="badge">{stage.title}</p>
+        <SoundToggle enabled={soundEnabled} onToggle={onToggleSound} />
+      </div>
 
       {stage.kind === 'choice' && (
         <ChoiceStage prompt={stage.prompt} options={stage.options} onSelect={onComplete} onTap={onTap} />
