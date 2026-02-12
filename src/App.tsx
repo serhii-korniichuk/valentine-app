@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import ConfettiBurst from './components/ConfettiBurst'
 import BackgroundHearts from './components/BackgroundHearts'
 import FinalScreen from './components/FinalScreen'
@@ -26,10 +26,6 @@ const App = () => {
 
   const allRewardLabels = useMemo(() => stages.map((stage) => stage.rewardLabel), [])
 
-  useEffect(() => {
-    setIsTransitioning(false)
-  }, [currentStage, mode])
-
   const triggerConfetti = () => {
     setConfettiTrigger((prev) => prev + 1)
   }
@@ -42,6 +38,7 @@ const App = () => {
     setCollectedHearts([])
     setRewardOpened(false)
     setConfettiTrigger(0)
+    setIsTransitioning(false)
   }
 
   const completeStage = async () => {
@@ -62,18 +59,24 @@ const App = () => {
       })
     }
 
-    triggerConfetti()
-    await play('success')
+    try {
+      triggerConfetti()
+      await play('success')
 
-    if (currentStage >= totalStages - 1) {
-      setMode('final')
-      await play('celebration')
-      return
+      if (currentStage >= totalStages - 1) {
+        setMode('final')
+        await play('celebration')
+        setIsTransitioning(false)
+        return
+      }
+
+      setTimeout(() => {
+        setCurrentStage((prev) => prev + 1)
+        setIsTransitioning(false)
+      }, 320)
+    } catch {
+      setIsTransitioning(false)
     }
-
-    setTimeout(() => {
-      setCurrentStage((prev) => prev + 1)
-    }, 320)
   }
 
   const openReward = async () => {
