@@ -1,10 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './styles/global.scss'
 import App from './App.tsx'
+import { DictionaryProvider } from './dictionary'
+import './styles/global.scss'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <DictionaryProvider>
+      <App />
+    </DictionaryProvider>
   </StrictMode>,
 )

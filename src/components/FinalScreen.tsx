@@ -1,3 +1,4 @@
+import { useDictionary } from '../dictionary'
 import localStyles from './FinalScreen.module.scss'
 import screenStyles from './shared/ScreenCard.module.scss'
 import ScreenCard from './shared/ScreenCard'
@@ -9,13 +10,13 @@ type FinalScreenProps = {
 }
 
 const FinalScreen = ({ hearts, onReward, rewardOpened }: FinalScreenProps) => {
+  const { messages } = useDictionary()
+
   return (
     <ScreenCard className={localStyles.finalCard}>
-      <p className={screenStyles.badge}>Фінал</p>
-      <h2 className={screenStyles.heading}>Ти відкрила всі 10 сердець ❤</h2>
-      <p className={screenStyles.leadText}>
-        Дякую, що ти є в моєму житті. Ти робиш мої дні теплішими, а мене кращим. Я дуже тебе кохаю.
-      </p>
+      <p className={screenStyles.badge}>{messages.final.badge}</p>
+      <h2 className={screenStyles.heading}>{messages.final.title}</h2>
+      <p className={screenStyles.leadText}>{messages.final.message}</p>
 
       <div className={localStyles.heartCollection}>
         {hearts.map((heart) => (
@@ -26,13 +27,13 @@ const FinalScreen = ({ hearts, onReward, rewardOpened }: FinalScreenProps) => {
       </div>
 
       <button className={screenStyles.primaryButton} type="button" onClick={onReward}>
-        Відкрити подарунок
+        {messages.final.rewardButton}
       </button>
 
       {rewardOpened && (
         <div className={localStyles.rewardBox}>
-          <p>Нагорода: купон на ідеальне побачення + 1000 обіймів без обмежень.</p>
-          <p>Промокод: LOVE-FOREVER</p>
+          <p>{messages.final.rewardLine1}</p>
+          <p>{messages.final.rewardLine2}</p>
         </div>
       )}
     </ScreenCard>

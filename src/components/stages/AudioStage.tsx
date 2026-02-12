@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useDictionary } from '../../dictionary'
 import screenStyles from '../shared/ScreenCard.module.scss'
 import stageStyles from './StageCommon.module.scss'
 
@@ -10,6 +11,7 @@ type AudioStageProps = {
 }
 
 const AudioStage = ({ prompt, caption, onPlay, onComplete }: AudioStageProps) => {
+  const { messages } = useDictionary()
   const [played, setPlayed] = useState(false)
 
   const handlePlay = async () => {
@@ -21,11 +23,11 @@ const AudioStage = ({ prompt, caption, onPlay, onComplete }: AudioStageProps) =>
     <div className={stageStyles.stageBody}>
       <p className={stageStyles.stagePrompt}>{prompt}</p>
       <button className={screenStyles.primaryButton} type="button" onClick={handlePlay}>
-        Відтворити
+        {messages.stageUi.audio.playButton}
       </button>
       {played && <p className={stageStyles.audioCaption}>{caption}</p>}
       <button className={screenStyles.secondaryButton} type="button" onClick={onComplete}>
-        Продовжити
+        {messages.stageUi.audio.continueButton}
       </button>
     </div>
   )

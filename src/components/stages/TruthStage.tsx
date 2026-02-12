@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { useDictionary } from '../../dictionary'
 import stageStyles from './StageCommon.module.scss'
 
 type TruthStageProps = {
@@ -9,6 +10,8 @@ type TruthStageProps = {
 }
 
 const TruthStage = ({ prompt, statement, onComplete, onTap }: TruthStageProps) => {
+  const { messages } = useDictionary()
+
   const handleAnswer = () => {
     onTap()
     onComplete()
@@ -20,10 +23,10 @@ const TruthStage = ({ prompt, statement, onComplete, onTap }: TruthStageProps) =
       <p className={stageStyles.truthStatement}>{statement}</p>
       <div className={classNames(stageStyles.answerGrid, stageStyles.answerGridTwo)}>
         <button className={stageStyles.answerButton} type="button" onClick={handleAnswer}>
-          Правда
+          {messages.stageUi.truth.trueButton}
         </button>
         <button className={stageStyles.answerButton} type="button" onClick={handleAnswer}>
-          Неправда (але мило)
+          {messages.stageUi.truth.falseButton}
         </button>
       </div>
     </div>

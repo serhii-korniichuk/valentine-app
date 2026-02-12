@@ -1,3 +1,4 @@
+import { useDictionary } from '../dictionary'
 import screenStyles from './shared/ScreenCard.module.scss'
 import ScreenCard from './shared/ScreenCard'
 
@@ -6,15 +7,15 @@ type HomeScreenProps = {
 }
 
 const HomeScreen = ({ onStart }: HomeScreenProps) => {
+  const { messages } = useDictionary()
+
   return (
     <ScreenCard>
-      <p className={screenStyles.badge}>Valentine quiz</p>
-      <h1 className={screenStyles.heading}>Для найкоханішої</h1>
-      <p className={screenStyles.leadText}>
-        10 маленьких кроків до великого сюрпризу, який я зробив тільки для тебе.
-      </p>
+      <p className={screenStyles.badge}>{messages.home.badge}</p>
+      <h1 className={screenStyles.heading}>{messages.home.title}</h1>
+      <p className={screenStyles.leadText}>{messages.home.subtitle}</p>
       <button className={screenStyles.primaryButton} type="button" onClick={onStart}>
-        Почати нашу історію
+        {messages.home.startButton}
       </button>
     </ScreenCard>
   )

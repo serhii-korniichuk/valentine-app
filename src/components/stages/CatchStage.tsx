@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useDictionary } from '../../dictionary'
 import screenStyles from '../shared/ScreenCard.module.scss'
 import stageStyles from './StageCommon.module.scss'
 
@@ -17,6 +18,7 @@ const nextPosition = () => {
 }
 
 const CatchStage = ({ prompt, target, onComplete, onTap }: CatchStageProps) => {
+  const { messages } = useDictionary()
   const [score, setScore] = useState(0)
   const [seconds, setSeconds] = useState(10)
   const [position, setPosition] = useState(nextPosition)
@@ -51,11 +53,12 @@ const CatchStage = ({ prompt, target, onComplete, onTap }: CatchStageProps) => {
     <div className={stageStyles.stageBody}>
       <p className={stageStyles.stagePrompt}>{prompt}</p>
       <p className={stageStyles.helperText}>
-        Спіймано: {score}/{target} • Час: {seconds}с
+        {messages.stageUi.catch.caughtLabel}: {score}/{target} • {messages.stageUi.catch.timeLabel}: {seconds}
+        {messages.stageUi.catch.secondsSuffix}
       </p>
       <div className={stageStyles.catchArea}>
         <button
-          aria-label="Спіймати сердечко"
+          aria-label={messages.stageUi.catch.heartAriaLabel}
           className={stageStyles.catchHeart}
           style={{ left: `${position.x}%`, top: `${position.y}%` }}
           type="button"
@@ -66,7 +69,7 @@ const CatchStage = ({ prompt, target, onComplete, onTap }: CatchStageProps) => {
       </div>
       {canFinish && (
         <button className={screenStyles.primaryButton} type="button" onClick={onComplete}>
-          Далі (ти все одно перемогла)
+          {messages.stageUi.catch.continueButton}
         </button>
       )}
     </div>

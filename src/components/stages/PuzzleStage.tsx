@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useDictionary } from '../../dictionary'
 import stageStyles from './StageCommon.module.scss'
 
 type PuzzleStageProps = {
@@ -10,6 +11,7 @@ type PuzzleStageProps = {
 }
 
 const PuzzleStage = ({ prompt, words, targetPhrase, onComplete, onTap }: PuzzleStageProps) => {
+  const { messages } = useDictionary()
   const [picked, setPicked] = useState<string[]>([])
   const [attempts, setAttempts] = useState(0)
 
@@ -39,7 +41,7 @@ const PuzzleStage = ({ prompt, words, targetPhrase, onComplete, onTap }: PuzzleS
   return (
     <div className={stageStyles.stageBody}>
       <p className={stageStyles.stagePrompt}>{prompt}</p>
-      <p className={stageStyles.puzzleLine}>{picked.join(' ') || '...'}</p>
+      <p className={stageStyles.puzzleLine}>{picked.join(' ') || messages.stageUi.puzzle.previewPlaceholder}</p>
       <div className={stageStyles.answerGrid}>
         {available.map((word) => (
           <button key={word} className={stageStyles.answerButton} type="button" onClick={() => chooseWord(word)}>
@@ -47,7 +49,7 @@ const PuzzleStage = ({ prompt, words, targetPhrase, onComplete, onTap }: PuzzleS
           </button>
         ))}
       </div>
-      {attempts > 0 && <p className={stageStyles.helperText}>Трохи інакше, але мені все одно подобається твій варіант ❤</p>}
+      {attempts > 0 && <p className={stageStyles.helperText}>{messages.stageUi.puzzle.helperAfterAttempt}</p>}
     </div>
   )
 }

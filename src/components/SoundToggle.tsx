@@ -1,3 +1,4 @@
+import { useDictionary } from '../dictionary'
 import styles from './SoundToggle.module.scss'
 
 type SoundToggleProps = {
@@ -6,14 +7,11 @@ type SoundToggleProps = {
 }
 
 const SoundToggle = ({ enabled, onToggle }: SoundToggleProps) => {
+  const { messages } = useDictionary()
+  const label = enabled ? messages.soundToggle.onLabel : messages.soundToggle.offLabel
+
   return (
-    <button
-      aria-label={enabled ? 'Вимкнути звук' : 'Увімкнути звук'}
-      className={styles.soundToggle}
-      title={enabled ? 'Вимкнути звук' : 'Увімкнути звук'}
-      type="button"
-      onClick={onToggle}
-    >
+    <button aria-label={label} className={styles.soundToggle} title={label} type="button" onClick={onToggle}>
       {enabled ? (
         <svg aria-hidden className={styles.icon} viewBox="0 0 24 24">
           <path d="M3 10V14H7L12 18V6L7 10H3Z" />

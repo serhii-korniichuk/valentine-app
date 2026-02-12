@@ -7,8 +7,8 @@ import FinalScreen from './components/FinalScreen'
 import HomeScreen from './components/HomeScreen'
 import ProgressBar from './components/ProgressBar'
 import StageScreen from './components/StageScreen'
-import { stages } from './data/stages'
 import { useSound } from './hooks/useSound'
+import { useDictionary } from './dictionary'
 
 type ViewMode = 'home' | 'stages' | 'final'
 
@@ -20,12 +20,14 @@ const App = () => {
   const [rewardOpened, setRewardOpened] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
 
+  const { messages } = useDictionary()
   const { enabled, setEnabled, unlock, play } = useSound()
 
+  const stages = messages.quiz.stages
   const activeStage = stages[currentStage]
   const totalStages = stages.length
 
-  const allRewardLabels = useMemo(() => stages.map((stage) => stage.rewardLabel), [])
+  const allRewardLabels = useMemo(() => stages.map((stage) => stage.rewardLabel), [stages])
 
   const triggerConfetti = () => {
     setConfettiTrigger((prev) => prev + 1)

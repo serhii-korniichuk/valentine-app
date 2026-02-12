@@ -1,0 +1,137 @@
+import type { Messages } from '../types'
+
+export const ukMessages: Messages = {
+  soundToggle: {
+    onLabel: 'Вимкнути звук',
+    offLabel: 'Увімкнути звук',
+  },
+  progress: {
+    ariaLabel: 'Прогрес квізу',
+    stageLabel: 'Етап',
+  },
+  home: {
+    badge: 'Valentine quiz',
+    title: 'Для найкоханішої',
+    subtitle: '10 маленьких кроків до великого сюрпризу, який я зробив тільки для тебе.',
+    startButton: 'Почати нашу історію',
+  },
+  final: {
+    badge: 'Фінал',
+    title: 'Ти відкрила всі 10 сердець ❤',
+    message: 'Дякую, що ти є в моєму житті. Ти робиш мої дні теплішими, а мене кращим. Я дуже тебе кохаю.',
+    rewardButton: 'Відкрити подарунок',
+    rewardLine1: 'Нагорода: купон на ідеальне побачення + 1000 обіймів без обмежень.',
+    rewardLine2: 'Промокод: LOVE-FOREVER',
+  },
+  stageUi: {
+    truth: {
+      trueButton: 'Правда',
+      falseButton: 'Неправда (але мило)',
+    },
+    catch: {
+      caughtLabel: 'Спіймано',
+      timeLabel: 'Час',
+      secondsSuffix: 'с',
+      heartAriaLabel: 'Спіймати сердечко',
+      continueButton: 'Далі (ти все одно перемогла)',
+    },
+    date: {
+      placeholder: 'Наприклад: 14.02',
+      submitButton: 'Підтвердити',
+    },
+    puzzle: {
+      previewPlaceholder: '...',
+      helperAfterAttempt: 'Трохи інакше, але мені все одно подобається твій варіант ❤',
+    },
+    audio: {
+      playButton: 'Відтворити',
+      continueButton: 'Продовжити',
+    },
+  },
+  quiz: {
+    stages: [
+      {
+        id: 1,
+        kind: 'choice',
+        title: 'Етап 1',
+        prompt: 'Хто ти для мене?',
+        options: ['Моя муза', 'Моє натхнення', 'Мій всесвіт'],
+        rewardLabel: 'Серце щирості',
+      },
+      {
+        id: 2,
+        kind: 'choice',
+        title: 'Етап 2',
+        prompt: 'Який наш момент варто прожити ще раз?',
+        options: ['Перша зустріч', 'Перша прогулянка', 'Перші обійми'],
+        rewardLabel: 'Серце спогадів',
+      },
+      {
+        id: 3,
+        kind: 'truth',
+        title: 'Етап 3',
+        prompt: 'Правда чи неправда?',
+        statement: 'Я закохуюсь у тебе ще сильніше щодня.',
+        rewardLabel: 'Серце чесності',
+      },
+      {
+        id: 4,
+        kind: 'catch',
+        title: 'Етап 4',
+        prompt: 'Міні-гра: злови сердечка за 10 секунд!',
+        target: 7,
+        rewardLabel: 'Серце драйву',
+      },
+      {
+        id: 5,
+        kind: 'preference',
+        title: 'Етап 5',
+        prompt: 'Що ідеально підходить для нашого вечора?',
+        options: ['Суші + фільм', 'Піца + серіал', 'Десерт + прогулянка'],
+        helper: 'Вибери те, що сьогодні хочеться найбільше.',
+        rewardLabel: 'Серце смаків',
+      },
+      {
+        id: 6,
+        kind: 'date',
+        title: 'Етап 6',
+        prompt: 'Вгадай особливий день нашої історії',
+        hint: 'Підказка: це день, після якого все стало тепліше.',
+        rewardLabel: 'Серце дат',
+      },
+      {
+        id: 7,
+        kind: 'puzzle',
+        title: 'Етап 7',
+        prompt: 'Збери фразу-комплімент у правильному порядку',
+        words: ['ти', 'неймовірна', 'моя', 'дівчинка'],
+        targetPhrase: 'ти неймовірна моя дівчинка',
+        rewardLabel: 'Серце слів',
+      },
+      {
+        id: 8,
+        kind: 'choice',
+        title: 'Етап 8',
+        prompt: 'Ідеальне побачення просто зараз?',
+        options: ['Вечір у місті', 'Плед і какао вдома', 'Раптова мандрівка'],
+        rewardLabel: 'Серце мрій',
+      },
+      {
+        id: 9,
+        kind: 'audio',
+        title: 'Етап 9',
+        prompt: 'Натисни, щоб почути романтичний аудіо-сюрприз',
+        caption: 'Навіть коли мовчу, я думаю про тебе з усмішкою.',
+        rewardLabel: 'Серце мелодій',
+      },
+      {
+        id: 10,
+        kind: 'choice',
+        title: 'Етап 10',
+        prompt: 'Готова до фінального сюрпризу?',
+        options: ['Так, дуже', 'Так, звісно', 'Я вже чекаю'],
+        rewardLabel: 'Серце очікування',
+      },
+    ],
+  },
+}
