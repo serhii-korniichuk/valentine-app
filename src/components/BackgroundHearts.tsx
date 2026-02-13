@@ -1,4 +1,5 @@
 import styles from './BackgroundHearts.module.scss'
+import { heartSymbols } from '../config/heartSymbols'
 
 const hearts = Array.from({ length: 14 }, (_, index) => ({
   id: index,
@@ -20,7 +21,7 @@ const BackgroundHearts = () => {
             animationDuration: heart.duration,
           }}
         >
-          ❤
+          {heartSymbols.primary}
         </span>
       ))}
     </div>

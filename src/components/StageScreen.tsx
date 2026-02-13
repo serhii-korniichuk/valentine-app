@@ -7,12 +7,16 @@ import AudioStage from './stages/AudioStage'
 import CatchStage from './stages/CatchStage'
 import ChoiceStage from './stages/ChoiceStage'
 import DateStage from './stages/DateStage'
+import HiddenHeartsStage from './stages/HiddenHeartsStage'
 import HoldStage from './stages/HoldStage'
+import MemoryStage from './stages/MemoryStage'
 import PreferenceStage from './stages/PreferenceStage'
 import PuzzleStage from './stages/PuzzleStage'
 import ReactionStage from './stages/ReactionStage'
+import RhythmStage from './stages/RhythmStage'
 import SoundToggle from './SoundToggle'
 import TruthStage from './stages/TruthStage'
+import TicTacToeStage from './stages/TicTacToeStage'
 
 type StageScreenProps = {
   stage: QuizStage
@@ -66,6 +70,14 @@ const StageScreen = ({
       {stage.kind === 'hold' && <HoldStage stage={stage} onComplete={onComplete} onTap={onTap} />}
 
       {stage.kind === 'reaction' && <ReactionStage stage={stage} onComplete={onComplete} onTap={onTap} />}
+
+      {stage.kind === 'memory' && <MemoryStage stage={stage} onComplete={onComplete} onTap={onTap} />}
+
+      {stage.kind === 'rhythm' && <RhythmStage stage={stage} onComplete={onComplete} onTap={onTap} />}
+
+      {stage.kind === 'hidden' && <HiddenHeartsStage stage={stage} onComplete={onComplete} onTap={onTap} />}
+
+      {stage.kind === 'tic_tac_toe' && <TicTacToeStage stage={stage} onComplete={onComplete} onTap={onTap} />}
     </ScreenCard>
   )
 }

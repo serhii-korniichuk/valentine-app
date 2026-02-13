@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import type { CSSProperties } from "react";
 import classNames from "classnames";
 import styles from "./App.module.scss";
+import { heartSymbols } from "./config/heartSymbols";
 import { quizScenario } from "./config/quizScenario";
 import BackgroundHearts from "./components/BackgroundHearts";
 import ConfettiBurst from "./components/ConfettiBurst";
@@ -15,8 +16,8 @@ import { useSound } from "./hooks/useSound";
 type ViewMode = "home" | "stages" | "final";
 
 const App = () => {
-  const [mode, setMode] = useState<ViewMode>("home");
-  const [currentStage, setCurrentStage] = useState(0);
+  const [mode, setMode] = useState<ViewMode>("stages");
+  const [currentStage, setCurrentStage] = useState(7);
   const [collectedHearts, setCollectedHearts] = useState<string[]>([]);
   const [confettiTrigger, setConfettiTrigger] = useState(0);
   const [rewardOpened, setRewardOpened] = useState(false);
@@ -161,7 +162,7 @@ const App = () => {
         }
         aria-hidden
       >
-        <span className={styles.pullRefreshIcon}>❤</span>
+        <span className={styles.pullRefreshIcon}>{heartSymbols.primary}</span>
       </div>
 
       <BackgroundHearts />

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { heartSymbols } from '../../config/heartSymbols'
 import type { PuzzleStage as PuzzleStageConfig } from '../../types/quiz'
 import Button from '../shared/Button'
 import stageStyles from './StageCommon.module.scss'
@@ -64,7 +65,7 @@ const PuzzleStage = ({ stage, onComplete, onTap }: PuzzleStageProps) => {
   }
 
   const phraseText = picked.length > 0 ? toSentenceCase(picked.join(' ')) : stage.previewPlaceholder
-  const phraseWithHeart = isSolved && picked.length > 0 ? `${phraseText} ❤` : phraseText
+  const phraseWithHeart = isSolved && picked.length > 0 ? `${phraseText} ${heartSymbols.primary}` : phraseText
 
   return (
     <div className={stageStyles.stageBody}>

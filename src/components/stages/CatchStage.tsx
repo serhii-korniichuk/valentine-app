@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { heartSymbols } from "../../config/heartSymbols";
 import type { CatchStage as CatchStageConfig } from "../../types/quiz";
 import Button from "../shared/Button";
 import stageStyles from "./StageCommon.module.scss";
@@ -148,7 +149,7 @@ const CatchStage = ({
               type="button"
               onClick={clickHeart}
             >
-              ❤
+              {heartSymbols.primary}
             </button>
           )}
         </div>

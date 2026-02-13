@@ -1,4 +1,5 @@
 import type { QuizScenarioConfig } from "../types/quiz";
+import { heartSymbols } from "./heartSymbols";
 
 export const quizScenario: QuizScenarioConfig = {
   ui: {
@@ -31,7 +32,7 @@ export const quizScenario: QuizScenarioConfig = {
   },
   final: {
     badge: "Фінал",
-    title: "Ти відкрила всі 10 сердець ❤",
+    title: `Ти відкрила всі 10 сердець ${heartSymbols.primary}`,
     message:
       "Дякую, що ти є в моєму житті. Ти робиш мої дні теплішими, а мене кращим. Я дуже тебе кохаю.",
     rewardButton: "Відкрити подарунок",
@@ -53,7 +54,7 @@ export const quizScenario: QuizScenarioConfig = {
       rules: {
         type: "correct_option",
         correctOptionId: "universe",
-        incorrectMessage: "Це також, але спробуй ще раз ❤",
+        incorrectMessage: `Це також, але спробуй ще раз ${heartSymbols.primary}`,
       },
       rewardLabel: "Серце щирості",
     },
@@ -85,8 +86,7 @@ export const quizScenario: QuizScenarioConfig = {
       rules: {
         type: "correct_answer",
         correctAnswer: "truth",
-        incorrectMessage:
-          "Це щира правда, в тебе є ще змога обрати правильну відповідь ❤",
+        incorrectMessage: `Це щира правда, в тебе є ще змога обрати правильну відповідь ${heartSymbols.primary}`,
       },
       rewardLabel: "Серце чесності",
     },
@@ -94,7 +94,7 @@ export const quizScenario: QuizScenarioConfig = {
       id: 4,
       kind: "catch",
       title: "Етап 4",
-      prompt: "Міні-гра: злови сердечка за 10 секунд!",
+      prompt: "Злови усі сердечка за 10 секунд!",
       rules: {
         target: 10,
         durationSec: 10,
@@ -102,8 +102,7 @@ export const quizScenario: QuizScenarioConfig = {
         timeoutPraiseText:
           "Час вийшов, але ти молодець! Спробуй знову зібрати всі ті частинки мого серця, що я тобі дарую 🥰",
         retryButtonLabel: "Спробувати ще раз",
-        successText:
-          "Ти спіймала усі частинки мого серця! Ти\u00A0неймовірна ❤",
+        successText: `Ти спіймала усі частинки мого серця! Ти\u00A0неймовірна ${heartSymbols.primary}`,
         continueButtonLabel: "Далі",
         retryAfterSuccessButtonLabel: "Спробувати ще раз",
         minSpawnDistancePercent: 34,
@@ -124,7 +123,7 @@ export const quizScenario: QuizScenarioConfig = {
       id: 5,
       kind: "reaction",
       title: "Етап 5",
-      prompt: "Міні-челендж на реакцію: зупини сердечко в зоні кохання",
+      prompt: "Зупини сердечко в зоні кохання",
       rules: {
         cycleDurationMs: 1500,
         sweetSpotStart: 45,
@@ -132,7 +131,7 @@ export const quizScenario: QuizScenarioConfig = {
         successDelayMs: 380,
         meterLabel: "Спіймай момент і натисни точно в рожеву зону",
         actionButtonLabel: "Зловити момент",
-        idleMessage: "Тайминг вирішує все: дочекайся ідеального моменту ❤",
+        idleMessage: `Тайминг вирішує все: дочекайся ідеального моменту ${heartSymbols.primary}`,
         failMessage: "Ледь-ледь! Ще одна спроба ідеального таймінгу.",
         successMessage: "Ідеально! Ти зловила цей момент ✨",
       },
@@ -140,18 +139,22 @@ export const quizScenario: QuizScenarioConfig = {
     },
     {
       id: 6,
-      kind: "date",
+      kind: "memory",
       title: "Етап 6",
-      prompt: "Вгадай особливий день нашої історії",
-      hint: "Підказка: це день, після якого все стало тепліше.",
-      placeholder: "Наприклад: 14.02",
-      submitButtonLabel: "Підтвердити",
+      prompt: "Знайди всі пари наших моментів",
       rules: {
-        acceptedAnswers: ["14.02", "14/02", "14-02"],
-        normalize: "trim_lower",
-        incorrectMessage: "Спробуй ще, це дуже особлива дата ❤",
+        cards: [
+          { id: "hug", label: "Обійми" },
+          { id: "kiss", label: "Поцілунок" },
+          { id: "smile", label: "Усмішка" },
+        ],
+        flipBackDelayMs: 520,
+        matchedLabel: "Знайдено",
+        successMessage: "Ідеально! Ти відкрила всі пари ✨",
+        continueButtonLabel: "Далі",
+        retryButtonLabel: "Спробувати ще раз",
       },
-      rewardLabel: "Серце дат",
+      rewardLabel: "Серце памʼяті",
     },
     {
       id: 7,
@@ -163,8 +166,7 @@ export const quizScenario: QuizScenarioConfig = {
       rules: {
         acceptedPhrases: ["ти мій спокій серед шуму"],
         normalize: "trim_lower",
-        incorrectMessage:
-          "Трохи інакше, але мені все одно подобається твій варіант ❤",
+        incorrectMessage: `Трохи інакше, але мені все одно подобається твій варіант ${heartSymbols.primary}`,
         continueButtonLabel: "Далі",
         retryButtonLabel: "Спробувати ще раз",
       },
@@ -172,18 +174,20 @@ export const quizScenario: QuizScenarioConfig = {
     },
     {
       id: 8,
-      kind: "choice",
+      kind: "tic_tac_toe",
       title: "Етап 8",
-      prompt: "Ідеальне побачення просто зараз?",
-      options: [
-        { id: "city-night", label: "Вечір у місті" },
-        { id: "home-cocoa", label: "Плед і какао вдома" },
-        { id: "spontaneous-trip", label: "Раптова мандрівка" },
-      ],
+      prompt: "Збери 3 сердечка в одну лінію",
       rules: {
-        type: "any",
+        playerSymbol: heartSymbols.primary,
+        botSymbol: heartSymbols.secondary,
+        botSkill: 0.72,
+        winMessage: `Перемога! Ти зібрала ідеальну лінію ${heartSymbols.primary}`,
+        loseMessage: "Цього разу не вийшло, давай разок?",
+        drawMessage: "Нічия! Ще раунд для красивої перемоги?",
+        retryButtonLabel: "Спробувати ще раз",
+        continueButtonLabel: "Далі",
       },
-      rewardLabel: "Серце мрій",
+      rewardLabel: "Серце гри",
     },
     {
       id: 9,
@@ -193,7 +197,7 @@ export const quizScenario: QuizScenarioConfig = {
       rules: {
         holdDurationMs: 2600,
         progressLabel: "Сила кохання",
-        resetHint: "Майже! Спробуй ще раз і потримай трохи довше ❤",
+        resetHint: `Майже! Спробуй ще раз і потримай трохи довше ${heartSymbols.primary}`,
         successMessage: "Ти зробила це ідеально!",
         buttonIdleLabel: "Тримай мене",
         buttonHoldingLabel: "Ще трішки...",

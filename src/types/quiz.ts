@@ -8,6 +8,10 @@ export type StageKind =
   | 'audio'
   | 'hold'
   | 'reaction'
+  | 'memory'
+  | 'rhythm'
+  | 'hidden'
+  | 'tic_tac_toe'
 
 export type StageOption = {
   id: string
@@ -93,6 +97,52 @@ export type ReactionRules = {
   successMessage: string
 }
 
+export type MemoryRules = {
+  cards: StageOption[]
+  flipBackDelayMs: number
+  matchedLabel: string
+  idleHint?: string
+  successMessage: string
+  continueButtonLabel: string
+  retryButtonLabel: string
+}
+
+export type RhythmRules = {
+  targetTaps: number
+  tempoMs: number
+  hitWindowMs: number
+  counterLabel: string
+  waitingLabel: string
+  readyLabel: string
+  idleMessage: string
+  hitMessage: string
+  failMessage: string
+  successMessage: string
+  actionButtonLabel: string
+  retryButtonLabel: string
+  continueButtonLabel: string
+}
+
+export type HiddenRules = {
+  target: number
+  foundLabel: string
+  searchHint: string
+  successMessage: string
+  continueButtonLabel: string
+  retryButtonLabel: string
+}
+
+export type TicTacToeRules = {
+  playerSymbol: string
+  botSymbol: string
+  botSkill: number
+  winMessage: string
+  loseMessage: string
+  drawMessage: string
+  retryButtonLabel: string
+  continueButtonLabel: string
+}
+
 export type StageBase = {
   id: number
   kind: StageKind
@@ -164,6 +214,26 @@ export type ReactionStage = StageBase & {
   rules: ReactionRules
 }
 
+export type MemoryStage = StageBase & {
+  kind: 'memory'
+  rules: MemoryRules
+}
+
+export type RhythmStage = StageBase & {
+  kind: 'rhythm'
+  rules: RhythmRules
+}
+
+export type HiddenStage = StageBase & {
+  kind: 'hidden'
+  rules: HiddenRules
+}
+
+export type TicTacToeStage = StageBase & {
+  kind: 'tic_tac_toe'
+  rules: TicTacToeRules
+}
+
 export type QuizStage =
   | ChoiceStage
   | TruthStage
@@ -174,6 +244,10 @@ export type QuizStage =
   | AudioStage
   | HoldStage
   | ReactionStage
+  | MemoryStage
+  | RhythmStage
+  | HiddenStage
+  | TicTacToeStage
 
 export type QuizScenarioConfig = {
   ui: {
