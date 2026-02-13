@@ -1,13 +1,18 @@
 .appShell {
   position: relative;
   isolation: isolate;
-  min-height: 100vh;
-  padding: 2rem 1rem;
+  height: 100%;
+  min-height: 100dvh;
+  padding: calc(2rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right))
+    calc(2rem + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left));
   display: grid;
   grid-template-rows: auto auto 1fr;
   gap: 1rem;
   place-items: start center;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .isHome {
