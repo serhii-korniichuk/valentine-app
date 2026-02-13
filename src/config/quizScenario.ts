@@ -46,14 +46,14 @@ export const quizScenario: QuizScenarioConfig = {
       title: "Етап 1",
       prompt: "Хто ти для мене?",
       options: [
-        { id: "muse", label: "Моя муза" },
-        { id: "inspiration", label: "Моє натхнення" },
+        { id: "bun", label: "Моя булочка" },
+        { id: "air", label: "Моє повітря" },
         { id: "universe", label: "Мій всесвіт" },
       ],
       rules: {
         type: "correct_option",
         correctOptionId: "universe",
-        incorrectMessage: "Майже, спробуй ще раз ❤",
+        incorrectMessage: "Це також, але спробуй ще раз ❤",
       },
       rewardLabel: "Серце щирості",
     },
@@ -94,7 +94,7 @@ export const quizScenario: QuizScenarioConfig = {
       prompt: "Міні-гра: злови сердечка за 10 секунд!",
       rules: {
         target: 10,
-        durationSec: 5,
+        durationSec: 10,
         allowRetryAfterTimeout: true,
         timeoutPraiseText:
           "Ти молодець! Спробуй знову зібрати всі ті частинки мого серця, що я тобі дарую 🥰",
