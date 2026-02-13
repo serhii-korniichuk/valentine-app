@@ -80,13 +80,13 @@ export const quizScenario: QuizScenarioConfig = {
       kind: "truth",
       title: "Етап 3",
       prompt: "Правда чи неправда?",
-      statement: "Я люблю тебе все більше з кожним днем",
+      statement: `Я люблю тебе з кожним днем все більше ${heartSymbols.primary}`,
       trueButtonLabel: "Правда",
       falseButtonLabel: "Неправда (але мило)",
       rules: {
         type: "correct_answer",
         correctAnswer: "truth",
-        incorrectMessage: `Це щира правда, в тебе є ще змога обрати правильну відповідь ${heartSymbols.primary}`,
+        incorrectMessage: `Це щира правда, в тебе є ще змога обрати правильну відповідь 😘`,
       },
       rewardLabel: "Серце чесності",
     },
@@ -141,7 +141,7 @@ export const quizScenario: QuizScenarioConfig = {
       id: 6,
       kind: "memory",
       title: "Етап 6",
-      prompt: "Знайди всі пари наших моментів",
+      prompt: "Знайди всі пари",
       rules: {
         cards: [
           { id: "hug", label: "Обійми" },
@@ -198,7 +198,7 @@ export const quizScenario: QuizScenarioConfig = {
         holdDurationMs: 2600,
         progressLabel: "Сила кохання",
         resetHint: `Майже! Спробуй ще раз і потримай трохи довше ${heartSymbols.primary}`,
-        successMessage: "Ти зробила це ідеально!",
+        successMessage: "Ти зробила це ідеально 🥰",
         buttonIdleLabel: "Тримай мене",
         buttonHoldingLabel: "Ще трішки...",
         buttonSuccessLabel: "100% сили кохання!",

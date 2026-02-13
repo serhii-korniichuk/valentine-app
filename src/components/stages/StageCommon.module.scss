@@ -46,10 +46,22 @@
   background: var(--color-answer-selected-bg);
 }
 
+.answerButtonWrong {
+  animation: choiceShake 360ms ease-in-out;
+}
+
 .truthStatement {
   margin: 0;
   font-weight: 600;
   color: var(--color-truth-text);
+  text-align: center;
+}
+
+.truthStatementBox {
+  padding: 1rem 0.8rem;
+  border-radius: 0.85rem;
+  background: var(--color-final-reward-bg);
+  border: 1px dashed var(--color-final-reward-border);
 }
 
 .puzzleLine {
@@ -297,6 +309,29 @@
 
   & button {
     width: calc(50% - 0.375rem);
+  }
+}
+
+@keyframes choiceShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  18% {
+    transform: translateX(-5px);
+  }
+
+  36% {
+    transform: translateX(4px);
+  }
+
+  54% {
+    transform: translateX(-3px);
+  }
+
+  72% {
+    transform: translateX(2px);
   }
 }
 

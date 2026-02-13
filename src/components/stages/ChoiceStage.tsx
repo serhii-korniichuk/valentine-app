@@ -11,10 +11,12 @@ type ChoiceStageProps = {
 
 const ChoiceStage = ({ stage, onSelect, onTap }: ChoiceStageProps) => {
   const [selected, setSelected] = useState<string | null>(null)
+  const [wrongSelection, setWrongSelection] = useState<string | null>(null)
   const [feedback, setFeedback] = useState('')
 
   const handleClick = (optionId: string) => {
     setSelected(optionId)
+    setWrongSelection(null)
     onTap()
 
     if (stage.rules.type === 'any') {
@@ -32,6 +34,10 @@ const ChoiceStage = ({ stage, onSelect, onTap }: ChoiceStageProps) => {
       return
     }
 
+    setWrongSelection(optionId)
+    window.setTimeout(() => {
+      setWrongSelection((prev) => (prev === optionId ? null : prev))
+    }, 380)
     setFeedback(stage.rules.incorrectMessage)
   }
 
@@ -44,6 +50,7 @@ const ChoiceStage = ({ stage, onSelect, onTap }: ChoiceStageProps) => {
             key={option.id}
             className={classNames(stageStyles.answerButton, {
               [stageStyles.answerButtonSelected]: selected === option.id,
+              [stageStyles.answerButtonWrong]: wrongSelection === option.id,
             })}
             type="button"
             onClick={() => handleClick(option.id)}
