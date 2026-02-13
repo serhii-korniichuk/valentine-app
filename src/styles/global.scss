@@ -1,5 +1,5 @@
 :root {
-  font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: #3a1126;
@@ -7,12 +7,11 @@
   --app-bottom-color: #fffdfd;
   --app-background: linear-gradient(
     180deg,
-    var(--app-top-color) 0%,
-    #f8dce8 28%,
-    #fcecf4 58%,
+    var(--app-bottom-color) 100%,
+    var(--app-top-color) 100%,
     var(--app-bottom-color) 100%
   );
-  background: var(--app-background);
+  // background: var(--app-background);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -50,7 +49,8 @@ body {
   overscroll-behavior: none;
   -webkit-overflow-scrolling: auto;
   /* Helps Safari top chrome blend into page background more naturally. */
-  background-color: var(--app-top-color);
+  // background-color: var(--app-top-color);
+  background-color: var(--app-bottom-color);
 }
 
 button,
