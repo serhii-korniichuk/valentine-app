@@ -66,7 +66,7 @@ export const quizScenario: QuizScenarioConfig = {
       kind: "choice",
       title: "Етап 2",
       prompt:
-        "Якби можна було обрати щось одне і це тривало б вічність, що б ти обрала?",
+        "Якби можна було обрати щось одне і це тривало б вічність, що це було?",
       options: [
         { id: "walk", label: "Прогулянка" },
         { id: "talk", label: "Розмова" },
@@ -214,8 +214,8 @@ export const quizScenario: QuizScenarioConfig = {
       title: "Етап 10",
       prompt: "Готова до фінального сюрпризу?",
       options: [
-        { id: "yes-very", label: "Так, дуже" },
-        { id: "yes-of-course", label: "Так, звісно" },
+        { id: "yes-very", label: "Таааакк!" },
+        { id: "yes-of-course", label: "Ну звісно!" },
         { id: "already-waiting", label: "Ще довго чекати?" },
       ],
       rules: {

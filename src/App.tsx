@@ -16,8 +16,8 @@ import { useSound } from "./hooks/useSound";
 type ViewMode = "home" | "stages" | "final";
 
 const App = () => {
-  const [mode, setMode] = useState<ViewMode>("final");
-  const [currentStage, setCurrentStage] = useState(0);
+  const [mode, setMode] = useState<ViewMode>("stages");
+  const [currentStage, setCurrentStage] = useState(3);
   const [collectedHearts, setCollectedHearts] = useState<string[]>([]);
   const [confettiTrigger, setConfettiTrigger] = useState(0);
   const [rewardOpened, setRewardOpened] = useState(false);
@@ -277,7 +277,11 @@ const App = () => {
       )}
 
       {isLandscapeBlocked && (
-        <div className={styles.orientationOverlay} role="alert" aria-live="polite">
+        <div
+          className={styles.orientationOverlay}
+          role="alert"
+          aria-live="polite"
+        >
           <p className={styles.orientationOverlayText}>
             {quizScenario.ui.orientationOverlay.message}
           </p>
