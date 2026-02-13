@@ -1,4 +1,6 @@
 import { useRef, useState } from 'react'
+import type { CSSProperties } from 'react'
+import type { PointerEvent, TouchEvent } from 'react'
 import type { HoldStage as HoldStageConfig } from '../../types/quiz'
 import stageStyles from './StageCommon.module.scss'
 
@@ -12,10 +14,11 @@ const HoldStage = ({ stage, onComplete, onTap }: HoldStageProps) => {
   const [progress, setProgress] = useState(0)
   const [isHolding, setIsHolding] = useState(false)
   const [isCompleted, setIsCompleted] = useState(false)
-  const [hint, setHint] = useState(stage.rules.idleHint)
+  const [hint, setHint] = useState(stage.rules.idleHint ?? '')
 
   const rafRef = useRef<number | null>(null)
   const startAtRef = useRef<number | null>(null)
+  const activePointerIdRef = useRef<number | null>(null)
 
   const stopRaf = () => {
     if (rafRef.current === null) {
@@ -52,20 +55,20 @@ const HoldStage = ({ stage, onComplete, onTap }: HoldStageProps) => {
     rafRef.current = window.requestAnimationFrame(tick)
   }
 
-  const handlePointerDown = () => {
+  const startHold = () => {
     if (isCompleted || isHolding) {
       return
     }
 
     onTap()
     setIsHolding(true)
-    setHint(stage.rules.idleHint)
+    setHint(stage.rules.idleHint ?? '')
     startAtRef.current = null
     stopRaf()
     rafRef.current = window.requestAnimationFrame(tick)
   }
 
-  const handlePointerUp = () => {
+  const stopHold = () => {
     if (isCompleted || !isHolding) {
       return
     }
@@ -75,6 +78,39 @@ const HoldStage = ({ stage, onComplete, onTap }: HoldStageProps) => {
     startAtRef.current = null
     setProgress(0)
     setHint(stage.rules.resetHint)
+  }
+
+  const handlePointerDown = (event: PointerEvent<HTMLButtonElement>) => {
+    activePointerIdRef.current = event.pointerId
+    event.currentTarget.setPointerCapture(event.pointerId)
+    startHold()
+  }
+
+  const handlePointerUp = (event: PointerEvent<HTMLButtonElement>) => {
+    if (
+      activePointerIdRef.current !== null &&
+      event.currentTarget.hasPointerCapture(activePointerIdRef.current)
+    ) {
+      event.currentTarget.releasePointerCapture(activePointerIdRef.current)
+    }
+
+    activePointerIdRef.current = null
+    stopHold()
+  }
+
+  const handlePointerCancel = () => {
+    activePointerIdRef.current = null
+    stopHold()
+  }
+
+  const handleTouchStart = (event: TouchEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    startHold()
+  }
+
+  const handleTouchEnd = (event: TouchEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    stopHold()
   }
 
   const buttonLabel = isCompleted
@@ -92,7 +128,10 @@ const HoldStage = ({ stage, onComplete, onTap }: HoldStageProps) => {
           {stage.rules.progressLabel}: {Math.round(progress)}%
         </p>
         <div className={stageStyles.holdProgressTrack} aria-hidden>
-          <span className={stageStyles.holdProgressFill} style={{ width: `${progress}%` }} />
+          <span
+            className={stageStyles.holdProgressFill}
+            style={{ '--hold-progress': `${progress / 100}` } as CSSProperties}
+          />
         </div>
       </div>
 
@@ -102,13 +141,14 @@ const HoldStage = ({ stage, onComplete, onTap }: HoldStageProps) => {
         disabled={isCompleted}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
-        onPointerLeave={handlePointerUp}
-        onPointerCancel={handlePointerUp}
+        onPointerCancel={handlePointerCancel}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         {buttonLabel}
       </button>
 
-      <p className={stageStyles.helperText}>{hint}</p>
+      {hint && <p className={stageStyles.helperText}>{hint}</p>}
     </div>
   )
 }

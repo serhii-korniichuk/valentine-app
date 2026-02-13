@@ -188,17 +188,15 @@ export const quizScenario: QuizScenarioConfig = {
       id: 9,
       kind: "hold",
       title: "Етап 9",
-      prompt:
-        "Міні-челендж: затисни кнопку, щоб «пульс кохання» дійшов до 100%",
+      prompt: "Чим дужче тримаєш, тим більше сила кохання",
       rules: {
         holdDurationMs: 2600,
-        progressLabel: "Пульс кохання",
-        idleHint: "Затисни кнопку і не відпускай до повного заповнення.",
+        progressLabel: "Сила кохання",
         resetHint: "Майже! Спробуй ще раз і потримай трохи довше ❤",
         successMessage: "Ти зробила це ідеально!",
         buttonIdleLabel: "Тримай мене",
-        buttonHoldingLabel: "Тримай... ще трохи",
-        buttonSuccessLabel: "Відкрито",
+        buttonHoldingLabel: "Ще трішки...",
+        buttonSuccessLabel: "100% сили кохання!",
       },
       rewardLabel: "Серце ритму",
     },
@@ -210,7 +208,7 @@ export const quizScenario: QuizScenarioConfig = {
       options: [
         { id: "yes-very", label: "Так, дуже" },
         { id: "yes-of-course", label: "Так, звісно" },
-        { id: "already-waiting", label: "Я вже чекаю" },
+        { id: "already-waiting", label: "Ще довго чекати?" },
       ],
       rules: {
         type: "any",

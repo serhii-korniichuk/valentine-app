@@ -16,7 +16,7 @@ type ViewMode = "home" | "stages" | "final";
 
 const App = () => {
   const [mode, setMode] = useState<ViewMode>("stages");
-  const [currentStage, setCurrentStage] = useState(6);
+  const [currentStage, setCurrentStage] = useState(8);
   const [collectedHearts, setCollectedHearts] = useState<string[]>([]);
   const [confettiTrigger, setConfettiTrigger] = useState(0);
   const [rewardOpened, setRewardOpened] = useState(false);
@@ -48,6 +48,21 @@ const App = () => {
     setConfettiTrigger((prev) => prev + 1);
   };
 
+  const safePlay = async (
+    type: "tap" | "success" | "celebration",
+  ): Promise<void> => {
+    try {
+      await Promise.race([
+        play(type),
+        new Promise<void>((resolve) => {
+          window.setTimeout(resolve, 320);
+        }),
+      ]);
+    } catch {
+      // Do not block stage flow when mobile audio playback fails.
+    }
+  };
+
   const startQuizFlow = async () => {
     await unlock();
     setMode("stages");
@@ -61,14 +76,14 @@ const App = () => {
   const startQuiz = async () => {
     if (quizScenario.home.unlockGate?.enabled) {
       triggerConfetti();
-      await play("success");
+      await safePlay("success");
       setTimeout(() => {
         void startQuizFlow();
       }, quizScenario.home.unlockGate.successDelayMs);
       return;
     }
 
-    await play("tap");
+    await safePlay("tap");
     await startQuizFlow();
   };
 
@@ -93,14 +108,14 @@ const App = () => {
     try {
       if (!options?.skipCelebration) {
         triggerConfetti();
-        await play("success");
+        await safePlay("success");
       } else {
-        await play("tap");
+        await safePlay("tap");
       }
 
       if (currentStage >= totalStages - 1) {
         setMode("final");
-        await play("celebration");
+        await safePlay("celebration");
         setIsTransitioning(false);
         return;
       }
@@ -117,7 +132,7 @@ const App = () => {
   const openReward = async () => {
     setRewardOpened(true);
     triggerConfetti();
-    await play("celebration");
+    await safePlay("celebration");
   };
 
   const currentProgress = mode === "stages" ? currentStage : totalStages;

@@ -73,7 +73,7 @@ export type AudioRules = {
 export type HoldRules = {
   holdDurationMs: number
   progressLabel: string
-  idleHint: string
+  idleHint?: string
   resetHint: string
   successMessage: string
   buttonIdleLabel: string
