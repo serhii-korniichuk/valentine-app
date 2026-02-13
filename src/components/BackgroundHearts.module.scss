@@ -18,11 +18,11 @@
 @keyframes floatHeart {
   from {
     transform: translateY(0) rotate(0deg);
-    opacity: 0;
+    opacity: 0.8;
   }
 
-  15% {
-    opacity: 0.35;
+  80% {
+    opacity: 0.1;
   }
 
   to {
