@@ -6,6 +6,8 @@ export type StageKind =
   | 'date'
   | 'puzzle'
   | 'audio'
+  | 'hold'
+  | 'reaction'
 
 export type StageOption = {
   id: string
@@ -64,6 +66,29 @@ export type CatchRules = {
 
 export type AudioRules = {
   requirePlayBeforeContinue: boolean
+}
+
+export type HoldRules = {
+  holdDurationMs: number
+  progressLabel: string
+  idleHint: string
+  resetHint: string
+  successMessage: string
+  buttonIdleLabel: string
+  buttonHoldingLabel: string
+  buttonSuccessLabel: string
+}
+
+export type ReactionRules = {
+  cycleDurationMs: number
+  sweetSpotStart: number
+  sweetSpotEnd: number
+  successDelayMs: number
+  meterLabel: string
+  actionButtonLabel: string
+  idleMessage: string
+  failMessage: string
+  successMessage: string
 }
 
 export type StageBase = {
@@ -127,6 +152,16 @@ export type AudioStage = StageBase & {
   rules: AudioRules
 }
 
+export type HoldStage = StageBase & {
+  kind: 'hold'
+  rules: HoldRules
+}
+
+export type ReactionStage = StageBase & {
+  kind: 'reaction'
+  rules: ReactionRules
+}
+
 export type QuizStage =
   | ChoiceStage
   | TruthStage
@@ -135,6 +170,8 @@ export type QuizStage =
   | DateStage
   | PuzzleStage
   | AudioStage
+  | HoldStage
+  | ReactionStage
 
 export type QuizScenarioConfig = {
   ui: {

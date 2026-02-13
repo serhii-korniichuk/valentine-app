@@ -7,8 +7,10 @@ import AudioStage from './stages/AudioStage'
 import CatchStage from './stages/CatchStage'
 import ChoiceStage from './stages/ChoiceStage'
 import DateStage from './stages/DateStage'
+import HoldStage from './stages/HoldStage'
 import PreferenceStage from './stages/PreferenceStage'
 import PuzzleStage from './stages/PuzzleStage'
+import ReactionStage from './stages/ReactionStage'
 import SoundToggle from './SoundToggle'
 import TruthStage from './stages/TruthStage'
 
@@ -60,6 +62,10 @@ const StageScreen = ({
       {stage.kind === 'puzzle' && <PuzzleStage stage={stage} onComplete={onComplete} onTap={onTap} />}
 
       {stage.kind === 'audio' && <AudioStage stage={stage} onPlay={onAudioPlay} onComplete={onComplete} />}
+
+      {stage.kind === 'hold' && <HoldStage stage={stage} onComplete={onComplete} onTap={onTap} />}
+
+      {stage.kind === 'reaction' && <ReactionStage stage={stage} onComplete={onComplete} onTap={onTap} />}
     </ScreenCard>
   )
 }
