@@ -1,3 +1,56 @@
+# Valentine App
+
+Valentine App is a romantic mini web application designed as a personal Valentine’s Day greeting.
+
+## Technologies
+
+- React 19
+- TypeScript
+- Vite
+- SCSS (global styles + CSS modules)
+- vite-plugin-pwa (PWA support)
+
+## Run Locally
+
+Requirements:
+
+- Node.js 20+ (LTS recommended)
+- Yarn
+
+Install dependencies:
+
+```bash
+yarn
+```
+
+Start development server:
+
+```bash
+yarn dev
+```
+
+Build for production:
+
+```bash
+yarn build
+```
+
+Preview production build:
+
+```bash
+yarn preview
+```
+
+Run on local network (for phone testing):
+
+```bash
+yarn dev --host
+```
+
+Then open:
+
+`http://<LOCAL_IP>:5173`
+
 ## License & Reuse
 
 This project is licensed under the Valentine App Non-Commercial License. See
