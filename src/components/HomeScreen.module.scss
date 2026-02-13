@@ -1,0 +1,157 @@
+.homeScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.codeTag {
+  align-self: center;
+  border: 0;
+  font: inherit;
+  font-size: 0.76rem;
+  cursor: default;
+  appearance: none;
+}
+
+.codeTagInteractive {
+  cursor: pointer;
+}
+
+.codeTextSlot {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--tag-width, 8ch);
+}
+
+.codeText {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  transition:
+    opacity 220ms ease,
+    filter 220ms ease,
+    transform 220ms ease;
+}
+
+.codeTextHidden {
+  opacity: 0;
+  filter: blur(1px);
+}
+
+.codeTextOverlay {
+  opacity: 0;
+  transform: translateY(1px);
+}
+
+.codeTextShown {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  animation: codeReveal 280ms ease-out;
+}
+
+.actionArea {
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+
+.actionAreaUnlock {
+  min-height: 6.15rem;
+}
+
+.codeGate {
+  display: grid;
+  gap: 0.4rem;
+  width: min(100%, 15rem);
+}
+
+.codeLabel {
+  font-size: 0.85rem;
+  color: var(--color-home-code-label);
+}
+
+.codeInput {
+  justify-self: center;
+  width: min(100%, 12rem);
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-home-code-input-border);
+  outline: 0;
+  padding: 0.62rem 0.8rem;
+  text-align: center;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  color: var(--color-home-code-input-text);
+  background: var(--color-home-code-input-bg);
+
+  &::placeholder {
+    color: var(--color-home-code-input-placeholder);
+    opacity: 1;
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px var(--color-home-code-input-outline);
+  }
+}
+
+.codeInputInvalid {
+  animation: codeShake 360ms ease-in-out;
+}
+
+.successText {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--color-home-code-success);
+  animation: successIn 220ms ease-out;
+}
+
+@keyframes codeReveal {
+  from {
+    opacity: 0;
+    transform: translateY(1px);
+    filter: blur(1px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes codeShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  18% {
+    transform: translateX(-5px);
+  }
+
+  36% {
+    transform: translateX(4px);
+  }
+
+  54% {
+    transform: translateX(-3px);
+  }
+
+  72% {
+    transform: translateX(2px);
+  }
+}
+
+@keyframes successIn {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

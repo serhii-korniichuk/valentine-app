@@ -1,0 +1,60 @@
+@use "../../styles/glass" as glass;
+
+.screenCard {
+  @include glass.surface(1.6rem, 0.7, 16px);
+  @include glass.blobs;
+
+  width: min(100%, 46rem);
+  animation: cardIn 380ms ease-out;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  border-radius: 1.25rem;
+  padding: clamp(1.15rem, 4vw, 2rem);
+  background: linear-gradient(
+    160deg,
+    rgb(var(--color-screen-content-top-rgb) / 0.26) 0%,
+    rgb(
+        var(--color-screen-content-bottom-rgb) / var(--glass-accent-alpha, 0.08)
+      )
+      100%
+  );
+  border: 1px solid rgb(var(--color-screen-content-border-rgb) / 0.32);
+}
+
+.badge {
+  display: inline-block;
+  margin: 0 0 1.2rem;
+  padding: 0.32rem 0.78rem;
+  border-radius: 999px;
+  background: var(--color-screen-badge-bg);
+  color: var(--color-screen-badge-text);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.heading {
+  margin: 0;
+  color: var(--color-screen-heading);
+  line-height: 1.2;
+}
+
+.leadText {
+  margin: 0.9rem 0 1.2rem;
+  color: var(--color-screen-lead);
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

@@ -1,0 +1,144 @@
+:root {
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --color-text-base: #3a1126;
+  --color-white: #fff;
+
+  --color-app-top: #f4d2e1;
+  --color-app-bottom: #fffdfd;
+
+  --color-focus-ring: rgb(255 149 192 / 0.22);
+  --color-focus-ring-strong: rgb(255 149 192 / 0.25);
+  --color-focus-outline: rgb(242 177 206 / 0.42);
+
+  --color-glass-border-rgb: 255 200 221;
+  --color-glass-surface-top-rgb: 255 247 251;
+  --color-glass-surface-bottom-rgb: 255 233 244;
+  --color-glass-shadow-rgb: 208 104 153;
+  --color-glass-inner-highlight-rgb: 255 255 255;
+  --color-glass-blob-1-rgb: 255 164 206;
+  --color-glass-blob-2-rgb: 255 130 188;
+
+  --color-screen-content-top-rgb: 255 252 254;
+  --color-screen-content-bottom-rgb: 255 241 248;
+  --color-screen-content-border-rgb: 255 255 255;
+  --color-screen-badge-bg: #ffdeea;
+  --color-screen-badge-text: #a33b67;
+  --color-screen-heading: #8e2652;
+  --color-screen-lead: #7f3c5d;
+  --color-home-code-label: #8d4d6a;
+  --color-home-code-input-border: rgb(242 177 206 / 0.86);
+  --color-home-code-input-outline: rgb(242 177 206 / 0.42);
+  --color-home-code-input-bg: rgb(255 245 250 / 0.86);
+  --color-home-code-input-text: #7f2c52;
+  --color-home-code-input-placeholder: rgb(180 89 131 / 0.55);
+  --color-home-code-success: #8f2f58;
+
+  --color-stage-prompt: #84254d;
+  --color-stage-helper: #8c5670;
+  --color-answer-bg: #ffe6f0;
+  --color-answer-text: #8d315c;
+  --color-answer-selected-bg: #ffc1d8;
+  --color-truth-text: #8b2d55;
+  --color-date-input-border: #f4b4cf;
+  --color-date-input-bg: #fff8fb;
+  --color-date-input-text: #68263f;
+  --color-puzzle-line-text: #7b2146;
+  --color-catch-area-border: #f0abc7;
+  --color-catch-area-bg: rgb(255 255 255 / 0.5);
+  --color-catch-heart-bg: #ff8fbd;
+  --color-catch-heart-text: var(--color-white);
+
+  --color-progress-label: #7e2f55;
+  --color-progress-track: rgb(240 177 208 / 0.62);
+  --color-progress-fill-start: #ff5c9f;
+  --color-progress-fill-end: #ff91bc;
+
+  --color-sound-toggle-border: rgb(143 47 90 / 0.24);
+  --color-sound-toggle-bg: rgb(255 255 255 / 0.2);
+  --color-sound-toggle-icon: rgb(122 43 79 / 0.9);
+
+  --color-button-primary-start: #ff6da7;
+  --color-button-primary-end: #ff4f93;
+  --color-button-primary-text: var(--color-white);
+  --color-button-outline-bg: rgb(255 255 255 / 0.48);
+  --color-button-outline-text: #8d315c;
+  --color-button-outline-border: rgb(255 167 202 / 0.7);
+  --color-button-soft-bg: #ffe6f0;
+  --color-button-soft-text: #8d315c;
+  --color-button-soft-border: rgb(255 184 210 / 0.56);
+  --color-button-pulse-rgb: 255 95 154;
+
+  --color-final-chip-bg: #ffd7e8;
+  --color-final-chip-text: #8b2f59;
+  --color-final-reward-bg: var(--color-white);
+  --color-final-reward-border: #ffcbe0;
+  --color-final-reward-text: #702741;
+
+  --color-heart-bg: rgb(255 86 151 / 1);
+
+  --app-background: linear-gradient(
+    180deg,
+    var(--color-app-bottom) 100%,
+    var(--color-app-top) 100%,
+    var(--color-app-bottom) 100%
+  );
+
+  color: var(--color-text-base);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+
+html,
+body {
+  background: var(--app-background);
+}
+
+html {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  min-width: 320px;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: auto;
+  /* Helps Safari top chrome blend into page background more naturally. */
+  background-color: var(--color-app-bottom);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+:where(button, input, textarea, select, a, [tabindex]):focus {
+  outline: none;
+}
+
+:where(button, input, textarea, select, a, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-focus-outline);
+  outline-offset: 2px;
+}

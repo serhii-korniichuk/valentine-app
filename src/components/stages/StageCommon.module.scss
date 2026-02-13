@@ -1,0 +1,354 @@
+.stageBody {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.stagePrompt {
+  margin: 0;
+  font-size: clamp(1.16rem, 3.4vw, 1.44rem);
+  color: var(--color-stage-prompt);
+}
+
+.helperText {
+  margin: 0;
+  color: var(--color-stage-helper);
+}
+
+.answerGrid {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.answerGridTwo {
+  grid-template-columns: 1fr 1fr;
+}
+
+.answerButton {
+  border-radius: 0.85rem;
+  border: 0;
+  padding: 0.8rem 0.9rem;
+  cursor: pointer;
+  background: var(--color-answer-bg);
+  color: var(--color-answer-text);
+  transition:
+    transform 180ms ease,
+    box-shadow 220ms ease,
+    filter 220ms ease;
+
+  &:hover {
+    transform: scale(1.015);
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+    filter: saturate(1.05);
+  }
+}
+
+.answerButtonSelected {
+  background: var(--color-answer-selected-bg);
+}
+
+.answerButtonWrong {
+  animation: choiceShake 360ms ease-in-out;
+}
+
+.truthStatement {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-truth-text);
+  text-align: center;
+}
+
+.truthStatementBox {
+  padding: 1rem 0.8rem;
+  border-radius: 0.85rem;
+  background: var(--color-final-reward-bg);
+  border: 1px dashed var(--color-final-reward-border);
+}
+
+.puzzleLine {
+  margin: 0;
+  min-height: 1.45rem;
+  font-weight: 700;
+  color: var(--color-puzzle-line-text);
+  text-align: center;
+}
+
+.puzzlePreviewBox {
+  padding: 1.5rem 0.8rem;
+  border-radius: 0.85rem;
+  background: var(--color-final-reward-bg);
+  border: 1px dashed var(--color-final-reward-border);
+}
+
+.holdProgressWrap {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.holdProgressTrack {
+  width: 100%;
+  height: 0.9rem;
+  border-radius: 999px;
+  background: var(--color-progress-track);
+  overflow: hidden;
+}
+
+.holdProgressFill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    var(--color-progress-fill-start) 0%,
+    var(--color-progress-fill-end) 100%
+  );
+  transform-origin: left center;
+  transform: scaleX(var(--hold-progress, 0));
+  will-change: transform;
+}
+
+.holdButton {
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-fill-color: var(--color-button-primary-text);
+  border-radius: 0.85rem;
+  border: 0;
+  padding: 0.95rem 1rem;
+  cursor: pointer;
+  touch-action: none;
+  background: linear-gradient(
+    135deg,
+    var(--color-button-primary-start) 0%,
+    var(--color-button-primary-end) 100%
+  );
+  color: var(--color-button-primary-text);
+  font-weight: 700;
+  transition:
+    transform 180ms ease,
+    box-shadow 220ms ease,
+    filter 220ms ease;
+
+  &:active:not(:disabled) {
+    transform: scale(0.992);
+  }
+
+  &:disabled {
+    opacity: 0.72;
+    cursor: default;
+  }
+}
+
+@media (hover: hover) {
+  .holdButton:hover:not(:disabled) {
+    transform: scale(1.015);
+    box-shadow:
+      0 0 0 3px var(--color-focus-ring-strong),
+      0 10px 24px rgb(var(--color-button-pulse-rgb) / 0.28);
+  }
+}
+
+.reactionWrap {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.reactionTrack {
+  position: relative;
+  width: 100%;
+  height: 1rem;
+  border-radius: 999px;
+  background: var(--color-progress-track);
+  overflow: hidden;
+}
+
+.reactionSweetSpot {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 999px;
+  background: rgb(var(--color-button-pulse-rgb) / 0.28);
+}
+
+.reactionMarker {
+  position: absolute;
+  top: 50%;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--color-catch-heart-bg);
+  box-shadow: 0 0 0 3px rgb(255 255 255 / 0.55);
+  transform: translate(-50%, -50%);
+}
+
+.memoryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.memoryCard {
+  border: 0;
+  border-radius: 0.85rem;
+  min-height: 3.1rem;
+  cursor: pointer;
+  background: var(--color-answer-bg);
+  color: var(--color-answer-text);
+  transition:
+    transform 160ms ease,
+    box-shadow 200ms ease,
+    background-color 200ms ease;
+}
+
+.memoryCardOpen {
+  background: var(--color-answer-selected-bg);
+}
+
+.memoryCardMatched {
+  background: var(--color-screen-badge-bg);
+  box-shadow: 0 0 0 1px var(--color-final-reward-border) inset;
+}
+
+.memoryCardInner {
+  font-weight: 600;
+}
+
+.ticTacToeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.ticTacToeCell {
+  border: 0;
+  border-radius: 0.85rem;
+  min-height: 4.1rem;
+  background: var(--color-answer-bg);
+  color: var(--color-answer-text);
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    box-shadow 200ms ease,
+    background-color 200ms ease;
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+}
+
+.ticTacToePlayer {
+  background: var(--color-answer-selected-bg);
+}
+
+.ticTacToeBot {
+  background: var(--color-screen-badge-bg);
+}
+
+.catchArea {
+  position: relative;
+  width: 100%;
+  min-height: 230px;
+  border-radius: 1rem;
+  border: 1px dashed var(--color-catch-area-border);
+  background: var(--color-catch-area-bg);
+  overflow: hidden;
+}
+
+.catchAreaWrap {
+  position: relative;
+}
+
+.catchFloatingMessageSuccess,
+.catchFloatingMessageFail {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 1rem;
+  width: min(94%, 20rem);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
+  white-space: normal;
+  line-height: 1.3;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.catchFloatingMessageSuccess {
+  color: var(--color-home-code-success);
+}
+
+.catchFloatingMessageFail {
+  color: var(--color-stage-helper);
+}
+
+.catchHeart {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--color-catch-heart-bg);
+  color: var(--color-catch-heart-text);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.catchActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.75rem;
+
+  & button {
+    width: calc(50% - 0.375rem);
+  }
+}
+
+@keyframes choiceShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  18% {
+    transform: translateX(-5px);
+  }
+
+  36% {
+    transform: translateX(4px);
+  }
+
+  54% {
+    transform: translateX(-3px);
+  }
+
+  72% {
+    transform: translateX(2px);
+  }
+}
+
+@media (max-width: 560px) {
+  .answerGridTwo {
+    grid-template-columns: 1fr;
+  }
+
+  .memoryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .catchActions {
+    flex-wrap: wrap-reverse;
+
+    & button {
+      width: 100%;
+    }
+  }
+}

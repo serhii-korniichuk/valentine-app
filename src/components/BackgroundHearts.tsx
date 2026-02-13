@@ -1,0 +1,35 @@
+import styles from './BackgroundHearts.module.scss'
+import { heartSymbols } from '../config/heartSymbols'
+
+const hearts = Array.from({ length: 14 }, (_, index) => ({
+  id: index,
+  left: `${Math.round((index / 14) * 100)}%`,
+  delay: `${(index % 7) * 0.7}s`,
+  duration: `${7 + (index % 5)}s`,
+}))
+
+type BackgroundHeartsProps = {
+  symbol?: string
+}
+
+const BackgroundHearts = ({ symbol = heartSymbols.primary }: BackgroundHeartsProps) => {
+  return (
+    <div className={styles.backgroundHearts} aria-hidden>
+      {hearts.map((heart) => (
+        <span
+          key={heart.id}
+          className={styles.backgroundHeart}
+          style={{
+            left: heart.left,
+            animationDelay: heart.delay,
+            animationDuration: heart.duration,
+          }}
+        >
+          {symbol}
+        </span>
+      ))}
+    </div>
+  )
+}
+
+export default BackgroundHearts
