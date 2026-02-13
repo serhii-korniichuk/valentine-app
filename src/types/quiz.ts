@@ -2,15 +2,10 @@ export type StageKind =
   | 'choice'
   | 'truth'
   | 'catch'
-  | 'preference'
-  | 'date'
   | 'puzzle'
-  | 'audio'
   | 'hold'
   | 'reaction'
   | 'memory'
-  | 'rhythm'
-  | 'hidden'
   | 'tic_tac_toe'
 
 export type StageOption = {
@@ -38,12 +33,6 @@ export type TruthRules =
       incorrectMessage: string
     }
 
-export type DateRules = {
-  acceptedAnswers: string[]
-  normalize: 'trim_lower' | 'exact'
-  incorrectMessage: string
-}
-
 export type PuzzleRules = {
   acceptedPhrases: string[]
   normalize: 'trim_lower' | 'exact'
@@ -68,10 +57,6 @@ export type CatchRules = {
     minY: number
     maxY: number
   }
-}
-
-export type AudioRules = {
-  requirePlayBeforeContinue: boolean
 }
 
 export type HoldRules = {
@@ -102,31 +87,6 @@ export type MemoryRules = {
   flipBackDelayMs: number
   matchedLabel: string
   idleHint?: string
-  successMessage: string
-  continueButtonLabel: string
-  retryButtonLabel: string
-}
-
-export type RhythmRules = {
-  targetTaps: number
-  tempoMs: number
-  hitWindowMs: number
-  counterLabel: string
-  waitingLabel: string
-  readyLabel: string
-  idleMessage: string
-  hitMessage: string
-  failMessage: string
-  successMessage: string
-  actionButtonLabel: string
-  retryButtonLabel: string
-  continueButtonLabel: string
-}
-
-export type HiddenRules = {
-  target: number
-  foundLabel: string
-  searchHint: string
   successMessage: string
   continueButtonLabel: string
   retryButtonLabel: string
@@ -174,34 +134,11 @@ export type CatchStage = StageBase & {
   heartAriaLabel: string
 }
 
-export type PreferenceStage = StageBase & {
-  kind: 'preference'
-  options: StageOption[]
-  helper: string
-  rules: ChoiceRules
-}
-
-export type DateStage = StageBase & {
-  kind: 'date'
-  hint: string
-  placeholder: string
-  submitButtonLabel: string
-  rules: DateRules
-}
-
 export type PuzzleStage = StageBase & {
   kind: 'puzzle'
   words: string[]
   previewPlaceholder: string
   rules: PuzzleRules
-}
-
-export type AudioStage = StageBase & {
-  kind: 'audio'
-  caption: string
-  playButtonLabel: string
-  continueButtonLabel: string
-  rules: AudioRules
 }
 
 export type HoldStage = StageBase & {
@@ -219,16 +156,6 @@ export type MemoryStage = StageBase & {
   rules: MemoryRules
 }
 
-export type RhythmStage = StageBase & {
-  kind: 'rhythm'
-  rules: RhythmRules
-}
-
-export type HiddenStage = StageBase & {
-  kind: 'hidden'
-  rules: HiddenRules
-}
-
 export type TicTacToeStage = StageBase & {
   kind: 'tic_tac_toe'
   rules: TicTacToeRules
@@ -238,15 +165,10 @@ export type QuizStage =
   | ChoiceStage
   | TruthStage
   | CatchStage
-  | PreferenceStage
-  | DateStage
   | PuzzleStage
-  | AudioStage
   | HoldStage
   | ReactionStage
   | MemoryStage
-  | RhythmStage
-  | HiddenStage
   | TicTacToeStage
 
 export type QuizScenarioConfig = {

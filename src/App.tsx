@@ -17,7 +17,7 @@ type ViewMode = "home" | "stages" | "final";
 
 const App = () => {
   const [mode, setMode] = useState<ViewMode>("stages");
-  const [currentStage, setCurrentStage] = useState(7);
+  const [currentStage, setCurrentStage] = useState(0);
   const [collectedHearts, setCollectedHearts] = useState<string[]>([]);
   const [confettiTrigger, setConfettiTrigger] = useState(0);
   const [rewardOpened, setRewardOpened] = useState(false);
@@ -209,7 +209,6 @@ const App = () => {
           onTap={() => {
             void play("tap");
           }}
-          onAudioPlay={() => play("celebration")}
         />
       )}
 

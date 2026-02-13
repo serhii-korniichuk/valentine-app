@@ -3,17 +3,12 @@ import type { QuizStage } from '../types/quiz'
 import localStyles from './StageScreen.module.scss'
 import screenStyles from './shared/ScreenCard.module.scss'
 import ScreenCard from './shared/ScreenCard'
-import AudioStage from './stages/AudioStage'
 import CatchStage from './stages/CatchStage'
 import ChoiceStage from './stages/ChoiceStage'
-import DateStage from './stages/DateStage'
-import HiddenHeartsStage from './stages/HiddenHeartsStage'
 import HoldStage from './stages/HoldStage'
 import MemoryStage from './stages/MemoryStage'
-import PreferenceStage from './stages/PreferenceStage'
 import PuzzleStage from './stages/PuzzleStage'
 import ReactionStage from './stages/ReactionStage'
-import RhythmStage from './stages/RhythmStage'
 import SoundToggle from './SoundToggle'
 import TruthStage from './stages/TruthStage'
 import TicTacToeStage from './stages/TicTacToeStage'
@@ -27,7 +22,6 @@ type StageScreenProps = {
   soundDisabledLabel: string
   onToggleSound: () => void
   onTap: () => void
-  onAudioPlay: () => Promise<void>
 }
 
 const StageScreen = ({
@@ -39,7 +33,6 @@ const StageScreen = ({
   soundDisabledLabel,
   onToggleSound,
   onTap,
-  onAudioPlay,
 }: StageScreenProps) => {
   return (
     <ScreenCard>
@@ -59,23 +52,13 @@ const StageScreen = ({
 
       {stage.kind === 'catch' && <CatchStage stage={stage} onComplete={onComplete} onCelebrate={onCelebrate} onTap={onTap} />}
 
-      {stage.kind === 'preference' && <PreferenceStage stage={stage} onSelect={onComplete} onTap={onTap} />}
-
-      {stage.kind === 'date' && <DateStage stage={stage} onComplete={onComplete} onTap={onTap} />}
-
       {stage.kind === 'puzzle' && <PuzzleStage stage={stage} onComplete={onComplete} onTap={onTap} />}
-
-      {stage.kind === 'audio' && <AudioStage stage={stage} onPlay={onAudioPlay} onComplete={onComplete} />}
 
       {stage.kind === 'hold' && <HoldStage stage={stage} onComplete={onComplete} onTap={onTap} />}
 
       {stage.kind === 'reaction' && <ReactionStage stage={stage} onComplete={onComplete} onTap={onTap} />}
 
       {stage.kind === 'memory' && <MemoryStage stage={stage} onComplete={onComplete} onTap={onTap} />}
-
-      {stage.kind === 'rhythm' && <RhythmStage stage={stage} onComplete={onComplete} onTap={onTap} />}
-
-      {stage.kind === 'hidden' && <HiddenHeartsStage stage={stage} onComplete={onComplete} onTap={onTap} />}
 
       {stage.kind === 'tic_tac_toe' && <TicTacToeStage stage={stage} onComplete={onComplete} onTap={onTap} />}
     </ScreenCard>

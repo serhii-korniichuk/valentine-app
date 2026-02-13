@@ -193,7 +193,7 @@ export const quizScenario: QuizScenarioConfig = {
       id: 9,
       kind: "hold",
       title: "Етап 9",
-      prompt: "Чим дужче тримаєш, тим більше сила кохання",
+      prompt: "Чим дужче тримаєш, тим більша сила кохання",
       rules: {
         holdDurationMs: 2600,
         progressLabel: "Сила кохання",
