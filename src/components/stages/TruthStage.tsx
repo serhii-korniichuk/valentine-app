@@ -10,19 +10,25 @@ type TruthStageProps = {
 }
 
 const TruthStage = ({ stage, onComplete, onTap }: TruthStageProps) => {
+  const [selected, setSelected] = useState<'truth' | 'false' | null>(null)
   const [feedback, setFeedback] = useState('')
 
   const handleAnswer = (answer: 'truth' | 'false') => {
+    setSelected(answer)
     onTap()
 
     if (stage.rules.type === 'any') {
-      onComplete()
+      window.setTimeout(() => {
+        onComplete()
+      }, 280)
       return
     }
 
     if (answer === stage.rules.correctAnswer) {
       setFeedback('')
-      onComplete()
+      window.setTimeout(() => {
+        onComplete()
+      }, 280)
       return
     }
 
@@ -34,10 +40,22 @@ const TruthStage = ({ stage, onComplete, onTap }: TruthStageProps) => {
       <p className={stageStyles.stagePrompt}>{stage.prompt}</p>
       <p className={stageStyles.truthStatement}>{stage.statement}</p>
       <div className={classNames(stageStyles.answerGrid, stageStyles.answerGridTwo)}>
-        <button className={stageStyles.answerButton} type="button" onClick={() => handleAnswer('truth')}>
+        <button
+          className={classNames(stageStyles.answerButton, {
+            [stageStyles.answerButtonSelected]: selected === 'truth',
+          })}
+          type="button"
+          onClick={() => handleAnswer('truth')}
+        >
           {stage.trueButtonLabel}
         </button>
-        <button className={stageStyles.answerButton} type="button" onClick={() => handleAnswer('false')}>
+        <button
+          className={classNames(stageStyles.answerButton, {
+            [stageStyles.answerButtonSelected]: selected === 'false',
+          })}
+          type="button"
+          onClick={() => handleAnswer('false')}
+        >
           {stage.falseButtonLabel}
         </button>
       </div>

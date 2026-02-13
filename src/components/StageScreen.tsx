@@ -14,7 +14,8 @@ import TruthStage from './stages/TruthStage'
 
 type StageScreenProps = {
   stage: QuizStage
-  onComplete: () => void
+  onComplete: (options?: { skipCelebration?: boolean }) => void
+  onCelebrate: () => void
   soundEnabled: boolean
   soundEnabledLabel: string
   soundDisabledLabel: string
@@ -26,6 +27,7 @@ type StageScreenProps = {
 const StageScreen = ({
   stage,
   onComplete,
+  onCelebrate,
   soundEnabled,
   soundEnabledLabel,
   soundDisabledLabel,
@@ -49,7 +51,7 @@ const StageScreen = ({
 
       {stage.kind === 'truth' && <TruthStage stage={stage} onComplete={onComplete} onTap={onTap} />}
 
-      {stage.kind === 'catch' && <CatchStage stage={stage} onComplete={onComplete} onTap={onTap} />}
+      {stage.kind === 'catch' && <CatchStage stage={stage} onComplete={onComplete} onCelebrate={onCelebrate} onTap={onTap} />}
 
       {stage.kind === 'preference' && <PreferenceStage stage={stage} onSelect={onComplete} onTap={onTap} />}
 

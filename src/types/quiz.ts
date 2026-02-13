@@ -50,6 +50,16 @@ export type CatchRules = {
   allowRetryAfterTimeout: boolean
   timeoutPraiseText: string
   retryButtonLabel: string
+  successText: string
+  continueButtonLabel: string
+  retryAfterSuccessButtonLabel: string
+  minSpawnDistancePercent: number
+  spawnArea: {
+    minX: number
+    maxX: number
+    minY: number
+    maxY: number
+  }
 }
 
 export type AudioRules = {

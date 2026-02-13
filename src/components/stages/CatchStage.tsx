@@ -1,95 +1,179 @@
-import { useEffect, useState } from 'react'
-import type { CatchStage as CatchStageConfig } from '../../types/quiz'
-import Button from '../shared/Button'
-import stageStyles from './StageCommon.module.scss'
+import { useEffect, useState } from "react";
+import type { CatchStage as CatchStageConfig } from "../../types/quiz";
+import Button from "../shared/Button";
+import stageStyles from "./StageCommon.module.scss";
 
 type CatchStageProps = {
-  stage: CatchStageConfig
-  onComplete: () => void
-  onTap: () => void
-}
+  stage: CatchStageConfig;
+  onComplete: (options?: { skipCelebration?: boolean }) => void;
+  onCelebrate: () => void;
+  onTap: () => void;
+};
 
-const nextPosition = () => {
-  return {
-    x: 10 + Math.round(Math.random() * 78),
-    y: 12 + Math.round(Math.random() * 72),
+const nextPosition = (
+  stage: CatchStageConfig,
+  previous?: { x: number; y: number },
+) => {
+  const { minSpawnDistancePercent, spawnArea } = stage.rules;
+  const maxAttempts = 20;
+  let candidate = {
+    x: spawnArea.minX + Math.random() * (spawnArea.maxX - spawnArea.minX),
+    y: spawnArea.minY + Math.random() * (spawnArea.maxY - spawnArea.minY),
+  };
+
+  if (!previous) {
+    return candidate;
   }
-}
 
-const CatchStage = ({ stage, onComplete, onTap }: CatchStageProps) => {
-  const [score, setScore] = useState(0)
-  const [seconds, setSeconds] = useState(stage.rules.durationSec)
-  const [deadlineAt, setDeadlineAt] = useState(() => Date.now() + stage.rules.durationSec * 1000)
-  const [position, setPosition] = useState(nextPosition)
-
-  useEffect(() => {
-    if (score >= stage.rules.target) {
-      onComplete()
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    const distance = Math.hypot(
+      candidate.x - previous.x,
+      candidate.y - previous.y,
+    );
+    if (distance >= minSpawnDistancePercent) {
+      return candidate;
     }
-  }, [onComplete, score, stage.rules.target])
+
+    candidate = {
+      x: spawnArea.minX + Math.random() * (spawnArea.maxX - spawnArea.minX),
+      y: spawnArea.minY + Math.random() * (spawnArea.maxY - spawnArea.minY),
+    };
+  }
+
+  return candidate;
+};
+
+const CatchStage = ({
+  stage,
+  onComplete,
+  onCelebrate,
+  onTap,
+}: CatchStageProps) => {
+  const [score, setScore] = useState(0);
+  const [seconds, setSeconds] = useState(stage.rules.durationSec);
+  const [deadlineAt, setDeadlineAt] = useState(
+    () => Date.now() + stage.rules.durationSec * 1000,
+  );
+  const [position, setPosition] = useState(() => nextPosition(stage));
+  const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
-    if (score >= stage.rules.target) {
-      return
+    if (!isCompleted && score >= stage.rules.target) {
+      setIsCompleted(true);
+      onCelebrate();
+    }
+  }, [isCompleted, onCelebrate, score, stage.rules.target]);
+
+  useEffect(() => {
+    if (isCompleted || score >= stage.rules.target) {
+      return;
     }
 
     const interval = window.setInterval(() => {
-      const nextSeconds = Math.max(0, Math.ceil((deadlineAt - Date.now()) / 1000))
-      setSeconds((prev) => (prev === nextSeconds ? prev : nextSeconds))
+      const nextSeconds = Math.max(
+        0,
+        Math.ceil((deadlineAt - Date.now()) / 1000),
+      );
+      setSeconds((prev) => (prev === nextSeconds ? prev : nextSeconds));
 
       if (nextSeconds <= 0) {
-        window.clearInterval(interval)
+        window.clearInterval(interval);
       }
-    }, 100)
+    }, 100);
 
-    return () => window.clearInterval(interval)
-  }, [deadlineAt, score, stage.rules.target])
+    return () => window.clearInterval(interval);
+  }, [deadlineAt, isCompleted, score, stage.rules.target]);
 
   const clickHeart = () => {
-    if (seconds <= 0) {
-      return
+    if (seconds <= 0 || isCompleted) {
+      return;
     }
 
-    onTap()
-    setScore((prev) => prev + 1)
-    setPosition(nextPosition())
-  }
+    onTap();
+    setScore((prev) => Math.min(stage.rules.target, prev + 1));
 
-  const canRetry = seconds === 0 && score < stage.rules.target && stage.rules.allowRetryAfterTimeout
+    if (score + 1 < stage.rules.target) {
+      setPosition((prev) => nextPosition(stage, prev));
+    }
+  };
+
+  const canRetry =
+    !isCompleted &&
+    seconds === 0 &&
+    score < stage.rules.target &&
+    stage.rules.allowRetryAfterTimeout;
+  const floatingMessage = isCompleted
+    ? stage.rules.successText
+    : canRetry
+      ? stage.rules.timeoutPraiseText
+      : "";
 
   const retryRound = () => {
-    setScore(0)
-    setSeconds(stage.rules.durationSec)
-    setPosition(nextPosition())
-    setDeadlineAt(Date.now() + stage.rules.durationSec * 1000)
-  }
+    setScore(0);
+    setIsCompleted(false);
+    setSeconds(stage.rules.durationSec);
+    setPosition(nextPosition(stage));
+    setDeadlineAt(Date.now() + stage.rules.durationSec * 1000);
+  };
 
   return (
     <div className={stageStyles.stageBody}>
       <p className={stageStyles.stagePrompt}>{stage.prompt}</p>
       <p className={stageStyles.helperText}>
-        {stage.scoreLabel}: {score}/{stage.rules.target} • {stage.timeLabel}: {seconds}
+        {stage.scoreLabel}: {score}/{stage.rules.target} • {stage.timeLabel}:{" "}
+        {seconds}
         {stage.secondsSuffix}
       </p>
-      <div className={stageStyles.catchArea}>
-        <button
-          aria-label={stage.heartAriaLabel}
-          className={stageStyles.catchHeart}
-          style={{ left: `${position.x}%`, top: `${position.y}%` }}
-          type="button"
-          onClick={clickHeart}
-        >
-          ❤
-        </button>
+      <div className={stageStyles.catchAreaWrap}>
+        {floatingMessage && (
+          <p
+            className={
+              isCompleted
+                ? stageStyles.catchFloatingMessageSuccess
+                : stageStyles.catchFloatingMessageFail
+            }
+          >
+            {floatingMessage}
+          </p>
+        )}
+        <div className={stageStyles.catchArea}>
+          {!isCompleted && seconds > 0 && (
+            <button
+              aria-label={stage.heartAriaLabel}
+              className={stageStyles.catchHeart}
+              style={{
+                left: `${Math.round(position.x)}%`,
+                top: `${Math.round(position.y)}%`,
+              }}
+              type="button"
+              onClick={clickHeart}
+            >
+              ❤
+            </button>
+          )}
+        </div>
       </div>
-      {canRetry && <p className={stageStyles.helperText}>{stage.rules.timeoutPraiseText}</p>}
+      {isCompleted && (
+        <div className={stageStyles.catchActions}>
+          <Button variant="outline" type="button" onClick={retryRound}>
+            {stage.rules.retryAfterSuccessButtonLabel}
+          </Button>
+          <Button
+            variant="primary"
+            type="button"
+            onClick={() => onComplete({ skipCelebration: true })}
+          >
+            {stage.rules.continueButtonLabel}
+          </Button>
+        </div>
+      )}
       {canRetry && (
         <Button variant="primary" type="button" onClick={retryRound}>
           {stage.rules.retryButtonLabel}
         </Button>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default CatchStage
+export default CatchStage;

@@ -3,6 +3,7 @@
   border: 1px solid transparent;
   padding: 0.8rem 0.9rem;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   font-weight: 600;
   transition:
     transform 180ms ease,
@@ -15,6 +16,10 @@
     transform: scale(1.015);
     box-shadow: 0 0 0 3px var(--color-focus-ring);
     filter: saturate(1.05);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.992);
   }
 
   &:disabled {
@@ -34,18 +39,34 @@
       0 0 0 3px var(--color-focus-ring-strong),
       0 10px 24px rgb(var(--color-button-pulse-rgb) / 0.28);
   }
+
+  &:active:not(:disabled) {
+    filter: saturate(1.08) brightness(0.96);
+    box-shadow:
+      0 0 0 2px var(--color-focus-ring-strong),
+      0 6px 16px rgb(var(--color-button-pulse-rgb) / 0.24);
+  }
 }
 
 .outline {
   background: var(--color-button-outline-bg);
   color: var(--color-button-outline-text);
   border-color: var(--color-button-outline-border);
+
+  &:active:not(:disabled) {
+    background: var(--color-screen-badge-bg);
+    filter: saturate(1.03) brightness(0.98);
+  }
 }
 
 .soft {
   background: var(--color-button-soft-bg);
   color: var(--color-button-soft-text);
   border-color: var(--color-button-soft-border);
+
+  &:active:not(:disabled) {
+    filter: saturate(1.04) brightness(0.98);
+  }
 }
 
 .pulse {

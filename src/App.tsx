@@ -69,7 +69,7 @@ const App = () => {
     await startQuizFlow()
   }
 
-  const completeStage = async () => {
+  const completeStage = async (options?: { skipCelebration?: boolean }) => {
     if (isTransitioning || mode !== 'stages') {
       return
     }
@@ -88,8 +88,12 @@ const App = () => {
     }
 
     try {
-      triggerConfetti()
-      await play('success')
+      if (!options?.skipCelebration) {
+        triggerConfetti()
+        await play('success')
+      } else {
+        await play('tap')
+      }
 
       if (currentStage >= totalStages - 1) {
         setMode('final')
@@ -166,6 +170,10 @@ const App = () => {
         <StageScreen
           stage={activeStage}
           onComplete={completeStage}
+          onCelebrate={() => {
+            triggerConfetti()
+            void play('success')
+          }}
           soundEnabled={enabled}
           soundEnabledLabel={quizScenario.ui.soundToggle.onLabel}
           soundDisabledLabel={quizScenario.ui.soundToggle.offLabel}
