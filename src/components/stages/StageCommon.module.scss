@@ -63,9 +63,17 @@
 
 .puzzleLine {
   margin: 0;
-  min-height: 1.6rem;
+  min-height: 1.45rem;
   font-weight: 700;
   color: var(--color-puzzle-line-text);
+  text-align: center;
+}
+
+.puzzlePreviewBox {
+  padding: 1.5rem 0.8rem;
+  border-radius: 0.85rem;
+  background: var(--color-final-reward-bg);
+  border: 1px dashed var(--color-final-reward-border);
 }
 
 .holdProgressWrap {

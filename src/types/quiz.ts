@@ -44,6 +44,8 @@ export type PuzzleRules = {
   acceptedPhrases: string[]
   normalize: 'trim_lower' | 'exact'
   incorrectMessage: string
+  continueButtonLabel: string
+  retryButtonLabel: string
 }
 
 export type CatchRules = {
