@@ -177,6 +177,9 @@ export type QuizScenarioConfig = {
       onLabel: string
       offLabel: string
     }
+    orientationOverlay: {
+      message: string
+    }
     stageTransitionDelayMs: number
     progress: {
       ariaLabel: string

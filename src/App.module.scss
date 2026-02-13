@@ -15,6 +15,10 @@
   -webkit-overflow-scrolling: touch;
 }
 
+.appShellBlocked {
+  overflow: hidden;
+}
+
 .pullRefresh {
   position: fixed;
   left: 50%;
@@ -66,6 +70,34 @@
 .isHome {
   grid-template-rows: 1fr;
   place-items: center;
+}
+
+.orientationOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: linear-gradient(
+    180deg,
+    rgb(var(--color-app-gradient-top-rgb) / 0.96) 0%,
+    rgb(var(--color-app-gradient-bottom-rgb) / 0.96) 100%
+  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.orientationOverlayText {
+  margin: 0;
+  padding: 0.9rem 1.1rem;
+  border-radius: 0.85rem;
+  border: 1px dashed var(--color-final-reward-border);
+  background: var(--color-final-reward-bg);
+  color: var(--color-stage-prompt);
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-weight: 700;
+  text-align: center;
 }
 
 @keyframes pullPulse {

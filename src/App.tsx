@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { CSSProperties } from "react";
 import classNames from "classnames";
 import styles from "./App.module.scss";
@@ -16,12 +16,13 @@ import { useSound } from "./hooks/useSound";
 type ViewMode = "home" | "stages" | "final";
 
 const App = () => {
-  const [mode, setMode] = useState<ViewMode>("stages");
+  const [mode, setMode] = useState<ViewMode>("final");
   const [currentStage, setCurrentStage] = useState(0);
   const [collectedHearts, setCollectedHearts] = useState<string[]>([]);
   const [confettiTrigger, setConfettiTrigger] = useState(0);
   const [rewardOpened, setRewardOpened] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isLandscapeBlocked, setIsLandscapeBlocked] = useState(false);
 
   const { enabled, setEnabled, unlock, play } = useSound();
   const {
@@ -44,6 +45,52 @@ const App = () => {
     () => stages.map((stage) => stage.rewardLabel),
     [stages],
   );
+
+  useEffect(() => {
+    const tryLockPortrait = async () => {
+      try {
+        if (typeof screen !== "undefined" && "orientation" in screen) {
+          const orientation = screen.orientation as ScreenOrientation & {
+            lock?: (orientation: string) => Promise<void>;
+          };
+
+          if (orientation.lock) {
+            await orientation.lock("portrait");
+          }
+        }
+      } catch {
+        // Some browsers (notably iOS Safari) ignore orientation lock.
+      }
+    };
+
+    void tryLockPortrait();
+    window.addEventListener("orientationchange", tryLockPortrait);
+    document.addEventListener("visibilitychange", tryLockPortrait);
+
+    return () => {
+      window.removeEventListener("orientationchange", tryLockPortrait);
+      document.removeEventListener("visibilitychange", tryLockPortrait);
+    };
+  }, []);
+
+  useEffect(() => {
+    const evaluateLandscapeBlock = () => {
+      const isMobileLike =
+        window.matchMedia("(pointer: coarse)").matches ||
+        window.matchMedia("(max-width: 1024px)").matches;
+      const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+      setIsLandscapeBlocked(isMobileLike && isLandscape);
+    };
+
+    evaluateLandscapeBlock();
+    window.addEventListener("resize", evaluateLandscapeBlock);
+    window.addEventListener("orientationchange", evaluateLandscapeBlock);
+
+    return () => {
+      window.removeEventListener("resize", evaluateLandscapeBlock);
+      window.removeEventListener("orientationchange", evaluateLandscapeBlock);
+    };
+  }, []);
 
   const triggerConfetti = () => {
     setConfettiTrigger((prev) => prev + 1);
@@ -143,6 +190,7 @@ const App = () => {
       ref={shellRef}
       className={classNames(styles.appShell, {
         [styles.isHome]: mode === "home",
+        [styles.appShellBlocked]: isLandscapeBlocked,
       })}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
@@ -226,6 +274,14 @@ const App = () => {
           onReward={openReward}
           rewardOpened={rewardOpened}
         />
+      )}
+
+      {isLandscapeBlocked && (
+        <div className={styles.orientationOverlay} role="alert" aria-live="polite">
+          <p className={styles.orientationOverlayText}>
+            {quizScenario.ui.orientationOverlay.message}
+          </p>
+        </div>
       )}
     </main>
   );

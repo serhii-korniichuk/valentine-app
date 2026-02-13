@@ -7,6 +7,9 @@ export const quizScenario: QuizScenarioConfig = {
       onLabel: "Вимкнути звук",
       offLabel: "Увімкнути звук",
     },
+    orientationOverlay: {
+      message: "У вертикальному положені завжди краще 😉",
+    },
     stageTransitionDelayMs: 440,
     progress: {
       ariaLabel: "Прогрес квізу",
@@ -32,7 +35,7 @@ export const quizScenario: QuizScenarioConfig = {
   },
   final: {
     badge: "Фінал",
-    title: `Ти відкрила всі 10 сердець ${heartSymbols.primary}`,
+    title: `Ти молодець! Усі випробування пройдені  ${heartSymbols.special}`,
     message:
       "Дякую, що ти є в моєму житті. Ти робиш мої дні теплішими, а мене кращим. Я дуже тебе кохаю.",
     rewardButton: "Відкрити подарунок",
