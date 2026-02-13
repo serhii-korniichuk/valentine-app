@@ -32,15 +32,28 @@ const App = () => {
     setConfettiTrigger((prev) => prev + 1)
   }
 
-  const startQuiz = async () => {
+  const startQuizFlow = async () => {
     await unlock()
-    await play('tap')
     setMode('stages')
     setCurrentStage(0)
     setCollectedHearts([])
     setRewardOpened(false)
     setConfettiTrigger(0)
     setIsTransitioning(false)
+  }
+
+  const startQuiz = async () => {
+    if (quizScenario.home.unlockGate?.enabled) {
+      triggerConfetti()
+      await play('success')
+      setTimeout(() => {
+        void startQuizFlow()
+      }, quizScenario.home.unlockGate.successDelayMs)
+      return
+    }
+
+    await play('tap')
+    await startQuizFlow()
   }
 
   const completeStage = async () => {
@@ -106,10 +119,14 @@ const App = () => {
       {mode === 'home' && (
         <HomeScreen
           badge={quizScenario.home.badge}
+          unlockGate={quizScenario.home.unlockGate}
           title={quizScenario.home.title}
           subtitle={quizScenario.home.subtitle}
           startButtonLabel={quizScenario.home.startButton}
           startButtonPulse={quizScenario.home.startButtonPulse}
+          onRevealInput={() => {
+            void play('tap')
+          }}
           onStart={startQuiz}
         />
       )}

@@ -11,6 +11,7 @@
 
   --color-focus-ring: rgb(255 149 192 / 0.22);
   --color-focus-ring-strong: rgb(255 149 192 / 0.25);
+  --color-focus-outline: rgb(242 177 206 / 0.42);
 
   --color-glass-border-rgb: 255 200 221;
   --color-glass-surface-top-rgb: 255 247 251;
@@ -27,6 +28,13 @@
   --color-screen-badge-text: #a33b67;
   --color-screen-heading: #8e2652;
   --color-screen-lead: #7f3c5d;
+  --color-home-code-label: #8d4d6a;
+  --color-home-code-input-border: rgb(242 177 206 / 0.86);
+  --color-home-code-input-outline: rgb(242 177 206 / 0.42);
+  --color-home-code-input-bg: rgb(255 245 250 / 0.86);
+  --color-home-code-input-text: #7f2c52;
+  --color-home-code-input-placeholder: rgb(180 89 131 / 0.55);
+  --color-home-code-success: #8f2f58;
 
   --color-stage-prompt: #84254d;
   --color-stage-helper: #8c5670;
@@ -87,6 +95,8 @@
 
 * {
   box-sizing: border-box;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 html,
@@ -122,4 +132,13 @@ body {
 button,
 input {
   font: inherit;
+}
+
+:where(button, input, textarea, select, a, [tabindex]):focus {
+  outline: none;
+}
+
+:where(button, input, textarea, select, a, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-focus-outline);
+  outline-offset: 2px;
 }

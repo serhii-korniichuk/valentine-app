@@ -140,6 +140,16 @@ export type QuizScenarioConfig = {
   }
   home: {
     badge: string
+    unlockGate?: {
+      enabled: boolean
+      code: string
+      codeLength: number
+      tagLabel: string
+      codeInputLabel: string
+      codeInputPlaceholder: string
+      successMessage: string
+      successDelayMs: number
+    }
     title: string
     subtitle: string
     startButton: string

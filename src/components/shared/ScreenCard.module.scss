@@ -1,4 +1,4 @@
-@use '../../styles/glass' as glass;
+@use "../../styles/glass" as glass;
 
 .screenCard {
   @include glass.surface(1.6rem, 0.7, 16px);
@@ -16,14 +16,17 @@
   background: linear-gradient(
     160deg,
     rgb(var(--color-screen-content-top-rgb) / 0.26) 0%,
-    rgb(var(--color-screen-content-bottom-rgb) / var(--glass-accent-alpha, 0.08)) 100%
+    rgb(
+        var(--color-screen-content-bottom-rgb) / var(--glass-accent-alpha, 0.08)
+      )
+      100%
   );
   border: 1px solid rgb(var(--color-screen-content-border-rgb) / 0.32);
 }
 
 .badge {
   display: inline-block;
-  margin: 0 0 0.9rem;
+  margin: 0 0 1.2rem;
   padding: 0.32rem 0.78rem;
   border-radius: 999px;
   background: var(--color-screen-badge-bg);
