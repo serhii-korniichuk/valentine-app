@@ -14,9 +14,8 @@ export const quizScenario: QuizScenarioConfig = {
   },
   home: {
     badge: "Valentine quiz",
-    title: "Для найкоханішої",
-    subtitle:
-      "10 маленьких кроків до великого сюрпризу, який я зробив тільки для тебе.",
+    title: "Подарунок для\u00A0найкоханішої",
+    subtitle: "10 маленьких кроків до сюрпризу, який зроблений саме для тебе.",
     startButton: "Почати нашу історію",
   },
   final: {
