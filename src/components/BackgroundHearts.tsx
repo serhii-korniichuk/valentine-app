@@ -8,7 +8,11 @@ const hearts = Array.from({ length: 14 }, (_, index) => ({
   duration: `${7 + (index % 5)}s`,
 }))
 
-const BackgroundHearts = () => {
+type BackgroundHeartsProps = {
+  symbol?: string
+}
+
+const BackgroundHearts = ({ symbol = heartSymbols.primary }: BackgroundHeartsProps) => {
   return (
     <div className={styles.backgroundHearts} aria-hidden>
       {hearts.map((heart) => (
@@ -21,7 +25,7 @@ const BackgroundHearts = () => {
             animationDuration: heart.duration,
           }}
         >
-          {heartSymbols.primary}
+          {symbol}
         </span>
       ))}
     </div>

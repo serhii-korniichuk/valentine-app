@@ -2,22 +2,6 @@
   text-align: center;
 }
 
-.heartCollection {
-  margin: 1rem 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
-}
-
-.heartChip {
-  padding: 0.35rem 0.72rem;
-  border-radius: 999px;
-  background: var(--color-final-chip-bg);
-  color: var(--color-final-chip-text);
-  font-size: 0.82rem;
-}
-
 .rewardBox {
   margin-top: 1rem;
   padding: 0.9rem;

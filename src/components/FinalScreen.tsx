@@ -10,7 +10,6 @@ type FinalScreenProps = {
   rewardButtonLabel: string
   rewardLine1: string
   rewardLine2: string
-  hearts: string[]
   onReward: () => void
   rewardOpened: boolean
 }
@@ -22,7 +21,6 @@ const FinalScreen = ({
   rewardButtonLabel,
   rewardLine1,
   rewardLine2,
-  hearts,
   onReward,
   rewardOpened,
 }: FinalScreenProps) => {
@@ -32,17 +30,11 @@ const FinalScreen = ({
       <h2 className={screenStyles.heading}>{title}</h2>
       <p className={screenStyles.leadText}>{message}</p>
 
-      <div className={localStyles.heartCollection}>
-        {hearts.map((heart) => (
-          <span key={heart} className={localStyles.heartChip}>
-            {heart}
-          </span>
-        ))}
-      </div>
-
-      <Button variant="primary" type="button" onClick={onReward}>
-        {rewardButtonLabel}
-      </Button>
+      {!rewardOpened && (
+        <Button variant="primary" type="button" onClick={onReward}>
+          {rewardButtonLabel}
+        </Button>
+      )}
 
       {rewardOpened && (
         <div className={localStyles.rewardBox}>

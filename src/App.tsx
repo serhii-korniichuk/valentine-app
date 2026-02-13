@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
 import classNames from "classnames";
 import styles from "./App.module.scss";
@@ -16,9 +16,8 @@ import { useSound } from "./hooks/useSound";
 type ViewMode = "home" | "stages" | "final";
 
 const App = () => {
-  const [mode, setMode] = useState<ViewMode>("stages");
-  const [currentStage, setCurrentStage] = useState(3);
-  const [collectedHearts, setCollectedHearts] = useState<string[]>([]);
+  const [mode, setMode] = useState<ViewMode>("home");
+  const [currentStage, setCurrentStage] = useState(0);
   const [confettiTrigger, setConfettiTrigger] = useState(0);
   const [rewardOpened, setRewardOpened] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -40,11 +39,6 @@ const App = () => {
   const stages = quizScenario.stages;
   const activeStage = stages[currentStage];
   const totalStages = stages.length;
-
-  const allRewardLabels = useMemo(
-    () => stages.map((stage) => stage.rewardLabel),
-    [stages],
-  );
 
   useEffect(() => {
     const tryLockPortrait = async () => {
@@ -115,7 +109,6 @@ const App = () => {
     await unlock();
     setMode("stages");
     setCurrentStage(0);
-    setCollectedHearts([]);
     setRewardOpened(false);
     setConfettiTrigger(0);
     setIsTransitioning(false);
@@ -141,18 +134,6 @@ const App = () => {
     }
 
     setIsTransitioning(true);
-    const reward = stages[currentStage]?.rewardLabel;
-
-    if (reward) {
-      setCollectedHearts((prev) => {
-        if (prev.includes(reward)) {
-          return prev;
-        }
-
-        return [...prev, reward];
-      });
-    }
-
     try {
       if (!options?.skipCelebration) {
         triggerConfetti();
@@ -184,6 +165,9 @@ const App = () => {
   };
 
   const currentProgress = mode === "stages" ? currentStage : totalStages;
+  const activeHeartSymbol = rewardOpened
+    ? heartSymbols.special
+    : heartSymbols.primary;
 
   return (
     <main
@@ -210,10 +194,10 @@ const App = () => {
         }
         aria-hidden
       >
-        <span className={styles.pullRefreshIcon}>{heartSymbols.primary}</span>
+        <span className={styles.pullRefreshIcon}>{activeHeartSymbol}</span>
       </div>
 
-      <BackgroundHearts />
+      <BackgroundHearts symbol={activeHeartSymbol} />
       <ConfettiBurst trigger={confettiTrigger} />
 
       {mode !== "home" && (
@@ -268,9 +252,6 @@ const App = () => {
           rewardButtonLabel={quizScenario.final.rewardButton}
           rewardLine1={quizScenario.final.rewardLine1}
           rewardLine2={quizScenario.final.rewardLine2}
-          hearts={
-            collectedHearts.length === 0 ? allRewardLabels : collectedHearts
-          }
           onReward={openReward}
           rewardOpened={rewardOpened}
         />
