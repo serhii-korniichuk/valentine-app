@@ -6,13 +6,13 @@
 .stagePrompt {
   margin: 0;
   font-size: clamp(1.16rem, 3.4vw, 1.44rem);
-  color: #84254d;
+  color: var(--color-stage-prompt);
 }
 
 .helperText,
 .audioCaption {
   margin: 0;
-  color: #8c5670;
+  color: var(--color-stage-helper);
 }
 
 .answerGrid {
@@ -29,8 +29,8 @@
   border: 0;
   padding: 0.8rem 0.9rem;
   cursor: pointer;
-  background: #ffe6f0;
-  color: #8d315c;
+  background: var(--color-answer-bg);
+  color: var(--color-answer-text);
   transition:
     transform 180ms ease,
     box-shadow 220ms ease,
@@ -38,34 +38,34 @@
 
   &:hover {
     transform: scale(1.015);
-    box-shadow: 0 0 0 3px rgba(255, 149, 192, 0.22);
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
     filter: saturate(1.05);
   }
 }
 
 .answerButtonSelected {
-  background: #ffc1d8;
+  background: var(--color-answer-selected-bg);
 }
 
 .truthStatement {
   margin: 0;
   font-weight: 600;
-  color: #8b2d55;
+  color: var(--color-truth-text);
 }
 
 .dateInput {
-  border: 1px solid #f4b4cf;
+  border: 1px solid var(--color-date-input-border);
   border-radius: 0.8rem;
   padding: 0.76rem 0.85rem;
-  background: #fff8fb;
-  color: #68263f;
+  background: var(--color-date-input-bg);
+  color: var(--color-date-input-text);
 }
 
 .puzzleLine {
   margin: 0;
   min-height: 1.6rem;
   font-weight: 700;
-  color: #7b2146;
+  color: var(--color-puzzle-line-text);
 }
 
 .catchArea {
@@ -73,8 +73,8 @@
   width: 100%;
   min-height: 230px;
   border-radius: 1rem;
-  border: 1px dashed #f0abc7;
-  background: rgba(255, 255, 255, 0.5);
+  border: 1px dashed var(--color-catch-area-border);
+  background: var(--color-catch-area-bg);
   overflow: hidden;
 }
 
@@ -85,8 +85,8 @@
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  background: #ff5b9d;
-  color: #fff;
+  background: var(--color-catch-heart-bg);
+  color: var(--color-catch-heart-text);
   font-size: 1.25rem;
   cursor: pointer;
 }

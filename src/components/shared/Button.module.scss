@@ -13,7 +13,7 @@
 
   &:hover:not(:disabled) {
     transform: scale(1.015);
-    box-shadow: 0 0 0 3px rgba(255, 149, 192, 0.22);
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
     filter: saturate(1.05);
   }
 
@@ -25,27 +25,27 @@
 }
 
 .primary {
-  background: linear-gradient(135deg, #ff6da7 0%, #ff4f93 100%);
-  color: #fff;
+  background: linear-gradient(135deg, var(--color-button-primary-start) 0%, var(--color-button-primary-end) 100%);
+  color: var(--color-button-primary-text);
   font-weight: 700;
 
   &:hover:not(:disabled) {
     box-shadow:
-      0 0 0 3px rgba(255, 149, 192, 0.25),
-      0 10px 24px rgba(255, 95, 154, 0.28);
+      0 0 0 3px var(--color-focus-ring-strong),
+      0 10px 24px rgb(var(--color-button-pulse-rgb) / 0.28);
   }
 }
 
 .outline {
-  background: rgba(255, 255, 255, 0.48);
-  color: #8d315c;
-  border-color: rgba(255, 167, 202, 0.7);
+  background: var(--color-button-outline-bg);
+  color: var(--color-button-outline-text);
+  border-color: var(--color-button-outline-border);
 }
 
 .soft {
-  background: #ffe6f0;
-  color: #8d315c;
-  border-color: rgba(255, 184, 210, 0.56);
+  background: var(--color-button-soft-bg);
+  color: var(--color-button-soft-text);
+  border-color: var(--color-button-soft-border);
 }
 
 .pulse {
@@ -57,45 +57,45 @@
 @keyframes heartPulse {
   0% {
     transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(255, 95, 154, 0.02);
+    box-shadow: 0 0 0 0 rgb(var(--color-button-pulse-rgb) / 0.02);
     filter: saturate(1);
   }
 
   10% {
     transform: scale(1.06);
     box-shadow:
-      0 6px 16px rgba(255, 95, 154, 0.22),
-      0 0 0 4px rgba(255, 95, 154, 0.08);
+      0 6px 16px rgb(var(--color-button-pulse-rgb) / 0.22),
+      0 0 0 4px rgb(var(--color-button-pulse-rgb) / 0.08);
     filter: saturate(1.04);
   }
 
   18% {
     transform: scale(0.995);
-    box-shadow: 0 2px 8px rgba(255, 95, 154, 0.1);
+    box-shadow: 0 2px 8px rgb(var(--color-button-pulse-rgb) / 0.1);
   }
 
   27% {
     transform: scale(1.045);
     box-shadow:
-      0 8px 18px rgba(255, 95, 154, 0.2),
-      0 0 0 6px rgba(255, 95, 154, 0.06);
+      0 8px 18px rgb(var(--color-button-pulse-rgb) / 0.2),
+      0 0 0 6px rgb(var(--color-button-pulse-rgb) / 0.06);
   }
 
   36% {
     transform: scale(1);
-    box-shadow: 0 2px 7px rgba(255, 95, 154, 0.08);
+    box-shadow: 0 2px 7px rgb(var(--color-button-pulse-rgb) / 0.08);
     filter: saturate(1.02);
   }
 
   62% {
     transform: scale(1.012);
-    box-shadow: 0 4px 12px rgba(255, 95, 154, 0.09);
+    box-shadow: 0 4px 12px rgb(var(--color-button-pulse-rgb) / 0.09);
     filter: saturate(1.03);
   }
 
   100% {
     transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(255, 95, 154, 0.02);
+    box-shadow: 0 0 0 0 rgb(var(--color-button-pulse-rgb) / 0.02);
     filter: saturate(1);
   }
 }

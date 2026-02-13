@@ -1,9 +1,9 @@
 .soundToggle {
   width: 2.7rem;
   height: 2.7rem;
-  border: 1px solid rgba(143, 47, 90, 0.24);
-  background: rgba(255, 255, 255, 0.2);
-  color: rgba(122, 43, 79, 0.9);
+  border: 1px solid var(--color-sound-toggle-border);
+  background: var(--color-sound-toggle-bg);
+  color: var(--color-sound-toggle-icon);
   border-radius: 50%;
   padding: 0;
   cursor: pointer;
@@ -19,7 +19,7 @@
 
   &:hover {
     transform: scale(1.015);
-    box-shadow: 0 0 0 3px rgba(255, 149, 192, 0.22);
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
     filter: saturate(1.05);
   }
 }

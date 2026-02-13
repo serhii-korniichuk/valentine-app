@@ -15,10 +15,10 @@
   padding: clamp(1.15rem, 4vw, 2rem);
   background: linear-gradient(
     160deg,
-    rgba(255, 252, 254, 0.26) 0%,
-    rgba(255, 241, 248, var(--glass-accent-alpha, 0.08)) 100%
+    rgb(var(--color-screen-content-top-rgb) / 0.26) 0%,
+    rgb(var(--color-screen-content-bottom-rgb) / var(--glass-accent-alpha, 0.08)) 100%
   );
-  border: 1px solid rgba(255, 255, 255, 0.32);
+  border: 1px solid rgb(var(--color-screen-content-border-rgb) / 0.32);
 }
 
 .badge {
@@ -26,8 +26,8 @@
   margin: 0 0 0.9rem;
   padding: 0.32rem 0.78rem;
   border-radius: 999px;
-  background: #ffdeea;
-  color: #a33b67;
+  background: var(--color-screen-badge-bg);
+  color: var(--color-screen-badge-text);
   font-size: 0.76rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -35,13 +35,13 @@
 
 .heading {
   margin: 0;
-  color: #8e2652;
+  color: var(--color-screen-heading);
   line-height: 1.2;
 }
 
 .leadText {
   margin: 0.9rem 0 1.2rem;
-  color: #7f3c5d;
+  color: var(--color-screen-lead);
 }
 
 @keyframes cardIn {
