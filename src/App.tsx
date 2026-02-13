@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import type { CSSProperties } from 'react'
 import classNames from 'classnames'
 import styles from './App.module.scss'
 import { quizScenario } from './config/quizScenario'
@@ -8,6 +9,7 @@ import FinalScreen from './components/FinalScreen'
 import HomeScreen from './components/HomeScreen'
 import ProgressBar from './components/ProgressBar'
 import StageScreen from './components/StageScreen'
+import { usePullToRefresh } from './hooks/usePullToRefresh'
 import { useSound } from './hooks/useSound'
 
 type ViewMode = 'home' | 'stages' | 'final'
@@ -21,6 +23,17 @@ const App = () => {
   const [isTransitioning, setIsTransitioning] = useState(false)
 
   const { enabled, setEnabled, unlock, play } = useSound()
+  const {
+    shellRef,
+    pullDistance,
+    pullThreshold,
+    pullProgress,
+    isRefreshing,
+    onPointerDown,
+    onPointerMove,
+    onPointerUp,
+    onPointerCancel,
+  } = usePullToRefresh()
 
   const stages = quizScenario.stages
   const activeStage = stages[currentStage]
@@ -103,7 +116,25 @@ const App = () => {
   const currentProgress = mode === 'stages' ? currentStage : totalStages
 
   return (
-    <main className={classNames(styles.appShell, { [styles.isHome]: mode === 'home' })}>
+    <main
+      ref={shellRef}
+      className={classNames(styles.appShell, { [styles.isHome]: mode === 'home' })}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerCancel}
+    >
+      <div
+        className={classNames(styles.pullRefresh, {
+          [styles.pullRefreshReady]: pullDistance >= pullThreshold,
+          [styles.pullRefreshLoading]: isRefreshing,
+        })}
+        style={{ '--pull-offset': `${pullDistance}px`, '--pull-progress': pullProgress } as CSSProperties}
+        aria-hidden
+      >
+        <span className={styles.pullRefreshIcon}>❤</span>
+      </div>
+
       <BackgroundHearts />
       <ConfettiBurst trigger={confettiTrigger} />
 
