@@ -143,6 +143,7 @@ export type QuizScenarioConfig = {
     title: string
     subtitle: string
     startButton: string
+    startButtonPulse: boolean
   }
   final: {
     badge: string

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { CatchStage as CatchStageConfig } from '../../types/quiz'
-import screenStyles from '../shared/ScreenCard.module.scss'
+import Button from '../shared/Button'
 import stageStyles from './StageCommon.module.scss'
 
 type CatchStageProps = {
@@ -84,9 +84,9 @@ const CatchStage = ({ stage, onComplete, onTap }: CatchStageProps) => {
       </div>
       {canRetry && <p className={stageStyles.helperText}>{stage.rules.timeoutPraiseText}</p>}
       {canRetry && (
-        <button className={screenStyles.primaryButton} type="button" onClick={retryRound}>
+        <Button variant="primary" type="button" onClick={retryRound}>
           {stage.rules.retryButtonLabel}
-        </button>
+        </Button>
       )}
     </div>
   )

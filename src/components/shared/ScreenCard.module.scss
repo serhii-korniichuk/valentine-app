@@ -44,41 +44,6 @@
   color: #7f3c5d;
 }
 
-.primaryButton,
-.secondaryButton {
-  border-radius: 0.85rem;
-  border: 0;
-  padding: 0.8rem 0.9rem;
-  cursor: pointer;
-  transition:
-    transform 180ms ease,
-    box-shadow 220ms ease,
-    filter 220ms ease;
-
-  &:hover {
-    transform: scale(1.015);
-    box-shadow: 0 0 0 3px rgba(255, 149, 192, 0.22);
-    filter: saturate(1.05);
-  }
-}
-
-.primaryButton {
-  background: linear-gradient(135deg, #ff6da7 0%, #ff4f93 100%);
-  color: #fff;
-  font-weight: 700;
-
-  &:hover {
-    box-shadow:
-      0 0 0 3px rgba(255, 149, 192, 0.25),
-      0 10px 24px rgba(255, 95, 154, 0.28);
-  }
-}
-
-.secondaryButton {
-  background: #ffe6f0;
-  color: #8d315c;
-}
-
 @keyframes cardIn {
   from {
     opacity: 0;

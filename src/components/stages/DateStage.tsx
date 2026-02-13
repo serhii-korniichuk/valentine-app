@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import type { DateStage as DateStageConfig } from '../../types/quiz'
-import screenStyles from '../shared/ScreenCard.module.scss'
+import Button from '../shared/Button'
 import stageStyles from './StageCommon.module.scss'
 
 type DateStageProps = {
@@ -50,9 +50,9 @@ const DateStage = ({ stage, onComplete, onTap }: DateStageProps) => {
         value={value}
         onChange={(event) => setValue(event.target.value)}
       />
-      <button className={screenStyles.primaryButton} type="submit">
+      <Button variant="primary" type="submit">
         {stage.submitButtonLabel}
-      </button>
+      </Button>
       {feedback && <p className={stageStyles.helperText}>{feedback}</p>}
     </form>
   )

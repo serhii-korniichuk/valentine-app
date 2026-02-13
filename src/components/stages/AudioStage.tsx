@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { AudioStage as AudioStageConfig } from '../../types/quiz'
-import screenStyles from '../shared/ScreenCard.module.scss'
+import Button from '../shared/Button'
 import stageStyles from './StageCommon.module.scss'
 
 type AudioStageProps = {
@@ -22,13 +22,13 @@ const AudioStage = ({ stage, onPlay, onComplete }: AudioStageProps) => {
   return (
     <div className={stageStyles.stageBody}>
       <p className={stageStyles.stagePrompt}>{stage.prompt}</p>
-      <button className={screenStyles.primaryButton} type="button" onClick={handlePlay}>
+      <Button variant="primary" type="button" onClick={handlePlay}>
         {stage.playButtonLabel}
-      </button>
+      </Button>
       {played && <p className={stageStyles.audioCaption}>{stage.caption}</p>}
-      <button className={screenStyles.secondaryButton} type="button" onClick={onComplete} disabled={continueDisabled}>
+      <Button variant="soft" type="button" onClick={onComplete} disabled={continueDisabled}>
         {stage.continueButtonLabel}
-      </button>
+      </Button>
     </div>
   )
 }

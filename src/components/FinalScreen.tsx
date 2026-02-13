@@ -1,6 +1,7 @@
 import localStyles from './FinalScreen.module.scss'
-import screenStyles from './shared/ScreenCard.module.scss'
 import ScreenCard from './shared/ScreenCard'
+import screenStyles from './shared/ScreenCard.module.scss'
+import Button from './shared/Button'
 
 type FinalScreenProps = {
   badge: string
@@ -39,9 +40,9 @@ const FinalScreen = ({
         ))}
       </div>
 
-      <button className={screenStyles.primaryButton} type="button" onClick={onReward}>
+      <Button variant="primary" type="button" onClick={onReward}>
         {rewardButtonLabel}
-      </button>
+      </Button>
 
       {rewardOpened && (
         <div className={localStyles.rewardBox}>

@@ -109,6 +109,7 @@ const App = () => {
           title={quizScenario.home.title}
           subtitle={quizScenario.home.subtitle}
           startButtonLabel={quizScenario.home.startButton}
+          startButtonPulse={quizScenario.home.startButtonPulse}
           onStart={startQuiz}
         />
       )}
