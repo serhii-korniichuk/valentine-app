@@ -61,11 +61,13 @@ export const quizScenario: QuizScenarioConfig = {
       id: 2,
       kind: "choice",
       title: "Етап 2",
-      prompt: "Який наш момент варто прожити ще раз?",
+      prompt:
+        "Якби можна було обрати щось одне і це тривало б вічність, що б ти обрала?",
       options: [
-        { id: "first-meet", label: "Перша зустріч" },
-        { id: "first-walk", label: "Перша прогулянка" },
-        { id: "first-hug", label: "Перші обійми" },
+        { id: "walk", label: "Прогулянка" },
+        { id: "talk", label: "Розмова" },
+        { id: "hug", label: "Обійми" },
+        { id: "meet", label: "Поцілунок" },
       ],
       rules: {
         type: "any",
@@ -77,13 +79,14 @@ export const quizScenario: QuizScenarioConfig = {
       kind: "truth",
       title: "Етап 3",
       prompt: "Правда чи неправда?",
-      statement: "Я закохуюсь у тебе ще сильніше щодня.",
+      statement: "Я люблю тебе все більше з кожним днем",
       trueButtonLabel: "Правда",
       falseButtonLabel: "Неправда (але мило)",
       rules: {
         type: "correct_answer",
         correctAnswer: "truth",
-        incorrectMessage: "Відповідь інша, але ти все одно прекрасна ❤",
+        incorrectMessage:
+          "Це щира правда, в тебе є ще змога обрати правильну відповідь ❤",
       },
       rewardLabel: "Серце чесності",
     },
