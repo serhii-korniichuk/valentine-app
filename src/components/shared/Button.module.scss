@@ -49,22 +49,53 @@
 }
 
 .pulse {
-  animation: heartPulse 1.8s ease-in-out infinite;
+  animation: heartPulse 1.9s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  transform-origin: center;
+  will-change: transform, box-shadow, filter;
 }
 
 @keyframes heartPulse {
-  0%,
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 95, 154, 0.02);
+    filter: saturate(1);
+  }
+
+  10% {
+    transform: scale(1.06);
+    box-shadow:
+      0 6px 16px rgba(255, 95, 154, 0.22),
+      0 0 0 4px rgba(255, 95, 154, 0.08);
+    filter: saturate(1.04);
+  }
+
+  18% {
+    transform: scale(0.995);
+    box-shadow: 0 2px 8px rgba(255, 95, 154, 0.1);
+  }
+
+  27% {
+    transform: scale(1.045);
+    box-shadow:
+      0 8px 18px rgba(255, 95, 154, 0.2),
+      0 0 0 6px rgba(255, 95, 154, 0.06);
+  }
+
+  36% {
+    transform: scale(1);
+    box-shadow: 0 2px 7px rgba(255, 95, 154, 0.08);
+    filter: saturate(1.02);
+  }
+
+  62% {
+    transform: scale(1.012);
+    box-shadow: 0 4px 12px rgba(255, 95, 154, 0.09);
+    filter: saturate(1.03);
+  }
+
   100% {
     transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(255, 95, 154, 0.26);
-  }
-
-  35% {
-    transform: scale(1.04);
-    box-shadow: 0 0 0 10px rgba(255, 95, 154, 0);
-  }
-
-  55% {
-    transform: scale(0.995);
+    box-shadow: 0 0 0 0 rgba(255, 95, 154, 0.02);
+    filter: saturate(1);
   }
 }
