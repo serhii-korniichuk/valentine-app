@@ -1,39 +1,59 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
-import { useDictionary } from '../../dictionary'
+import type { DateStage as DateStageConfig } from '../../types/quiz'
 import screenStyles from '../shared/ScreenCard.module.scss'
 import stageStyles from './StageCommon.module.scss'
 
 type DateStageProps = {
-  prompt: string
-  hint: string
+  stage: DateStageConfig
   onComplete: () => void
   onTap: () => void
 }
 
-const DateStage = ({ prompt, hint, onComplete, onTap }: DateStageProps) => {
-  const { messages } = useDictionary()
+const normalizeValue = (value: string, mode: DateStageConfig['rules']['normalize']) => {
+  if (mode === 'trim_lower') {
+    return value.trim().toLowerCase()
+  }
+
+  return value
+}
+
+const DateStage = ({ stage, onComplete, onTap }: DateStageProps) => {
   const [value, setValue] = useState('')
+  const [feedback, setFeedback] = useState('')
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     onTap()
-    onComplete()
+
+    const normalizedInput = normalizeValue(value, stage.rules.normalize)
+    const canPass = stage.rules.acceptedAnswers.some((answer) => {
+      return normalizeValue(answer, stage.rules.normalize) === normalizedInput
+    })
+
+    if (canPass) {
+      setFeedback('')
+      onComplete()
+      return
+    }
+
+    setFeedback(stage.rules.incorrectMessage)
   }
 
   return (
     <form className={stageStyles.stageBody} onSubmit={submit}>
-      <p className={stageStyles.stagePrompt}>{prompt}</p>
-      <p className={stageStyles.helperText}>{hint}</p>
+      <p className={stageStyles.stagePrompt}>{stage.prompt}</p>
+      <p className={stageStyles.helperText}>{stage.hint}</p>
       <input
         className={stageStyles.dateInput}
-        placeholder={messages.stageUi.date.placeholder}
+        placeholder={stage.placeholder}
         value={value}
         onChange={(event) => setValue(event.target.value)}
       />
       <button className={screenStyles.primaryButton} type="submit">
-        {messages.stageUi.date.submitButton}
+        {stage.submitButtonLabel}
       </button>
+      {feedback && <p className={stageStyles.helperText}>{feedback}</p>}
     </form>
   )
 }

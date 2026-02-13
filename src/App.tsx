@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import classNames from 'classnames'
 import styles from './App.module.scss'
+import { quizScenario } from './config/quizScenario'
 import BackgroundHearts from './components/BackgroundHearts'
 import ConfettiBurst from './components/ConfettiBurst'
 import FinalScreen from './components/FinalScreen'
@@ -8,7 +9,6 @@ import HomeScreen from './components/HomeScreen'
 import ProgressBar from './components/ProgressBar'
 import StageScreen from './components/StageScreen'
 import { useSound } from './hooks/useSound'
-import { useDictionary } from './dictionary'
 
 type ViewMode = 'home' | 'stages' | 'final'
 
@@ -20,10 +20,9 @@ const App = () => {
   const [rewardOpened, setRewardOpened] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
 
-  const { messages } = useDictionary()
   const { enabled, setEnabled, unlock, play } = useSound()
 
-  const stages = messages.quiz.stages
+  const stages = quizScenario.stages
   const activeStage = stages[currentStage]
   const totalStages = stages.length
 
@@ -76,7 +75,7 @@ const App = () => {
       setTimeout(() => {
         setCurrentStage((prev) => prev + 1)
         setIsTransitioning(false)
-      }, 320)
+      }, quizScenario.ui.stageTransitionDelayMs)
     } catch {
       setIsTransitioning(false)
     }
@@ -95,15 +94,32 @@ const App = () => {
       <BackgroundHearts />
       <ConfettiBurst trigger={confettiTrigger} />
 
-      {mode !== 'home' && <ProgressBar current={currentProgress} total={totalStages} />}
+      {mode !== 'home' && (
+        <ProgressBar
+          current={currentProgress}
+          total={totalStages}
+          ariaLabel={quizScenario.ui.progress.ariaLabel}
+          stageLabel={quizScenario.ui.progress.stageLabel}
+        />
+      )}
 
-      {mode === 'home' && <HomeScreen onStart={startQuiz} />}
+      {mode === 'home' && (
+        <HomeScreen
+          badge={quizScenario.home.badge}
+          title={quizScenario.home.title}
+          subtitle={quizScenario.home.subtitle}
+          startButtonLabel={quizScenario.home.startButton}
+          onStart={startQuiz}
+        />
+      )}
 
       {mode === 'stages' && activeStage && (
         <StageScreen
           stage={activeStage}
           onComplete={completeStage}
           soundEnabled={enabled}
+          soundEnabledLabel={quizScenario.ui.soundToggle.onLabel}
+          soundDisabledLabel={quizScenario.ui.soundToggle.offLabel}
           onToggleSound={() => {
             setEnabled(!enabled)
           }}
@@ -116,6 +132,12 @@ const App = () => {
 
       {mode === 'final' && (
         <FinalScreen
+          badge={quizScenario.final.badge}
+          title={quizScenario.final.title}
+          message={quizScenario.final.message}
+          rewardButtonLabel={quizScenario.final.rewardButton}
+          rewardLine1={quizScenario.final.rewardLine1}
+          rewardLine2={quizScenario.final.rewardLine2}
           hearts={collectedHearts.length === 0 ? allRewardLabels : collectedHearts}
           onReward={openReward}
           rewardOpened={rewardOpened}

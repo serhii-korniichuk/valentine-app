@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useDictionary } from '../../dictionary'
+import type { CatchStage as CatchStageConfig } from '../../types/quiz'
 import screenStyles from '../shared/ScreenCard.module.scss'
 import stageStyles from './StageCommon.module.scss'
 
 type CatchStageProps = {
-  prompt: string
-  target: number
+  stage: CatchStageConfig
   onComplete: () => void
   onTap: () => void
 }
@@ -17,48 +16,64 @@ const nextPosition = () => {
   }
 }
 
-const CatchStage = ({ prompt, target, onComplete, onTap }: CatchStageProps) => {
-  const { messages } = useDictionary()
+const CatchStage = ({ stage, onComplete, onTap }: CatchStageProps) => {
   const [score, setScore] = useState(0)
-  const [seconds, setSeconds] = useState(10)
+  const [seconds, setSeconds] = useState(stage.rules.durationSec)
+  const [deadlineAt, setDeadlineAt] = useState(() => Date.now() + stage.rules.durationSec * 1000)
   const [position, setPosition] = useState(nextPosition)
 
   useEffect(() => {
-    if (score >= target) {
+    if (score >= stage.rules.target) {
       onComplete()
     }
-  }, [onComplete, score, target])
+  }, [onComplete, score, stage.rules.target])
 
   useEffect(() => {
-    if (seconds <= 0 || score >= target) {
+    if (score >= stage.rules.target) {
       return
     }
 
-    const timeout = window.setTimeout(() => {
-      setSeconds((prev) => prev - 1)
-    }, 1000)
+    const interval = window.setInterval(() => {
+      const nextSeconds = Math.max(0, Math.ceil((deadlineAt - Date.now()) / 1000))
+      setSeconds((prev) => (prev === nextSeconds ? prev : nextSeconds))
 
-    return () => window.clearTimeout(timeout)
-  }, [score, seconds, target])
+      if (nextSeconds <= 0) {
+        window.clearInterval(interval)
+      }
+    }, 100)
+
+    return () => window.clearInterval(interval)
+  }, [deadlineAt, score, stage.rules.target])
 
   const clickHeart = () => {
+    if (seconds <= 0) {
+      return
+    }
+
     onTap()
     setScore((prev) => prev + 1)
     setPosition(nextPosition())
   }
 
-  const canFinish = seconds === 0 && score < target
+  const canRetry = seconds === 0 && score < stage.rules.target && stage.rules.allowRetryAfterTimeout
+
+  const retryRound = () => {
+    setScore(0)
+    setSeconds(stage.rules.durationSec)
+    setPosition(nextPosition())
+    setDeadlineAt(Date.now() + stage.rules.durationSec * 1000)
+  }
 
   return (
     <div className={stageStyles.stageBody}>
-      <p className={stageStyles.stagePrompt}>{prompt}</p>
+      <p className={stageStyles.stagePrompt}>{stage.prompt}</p>
       <p className={stageStyles.helperText}>
-        {messages.stageUi.catch.caughtLabel}: {score}/{target} • {messages.stageUi.catch.timeLabel}: {seconds}
-        {messages.stageUi.catch.secondsSuffix}
+        {stage.scoreLabel}: {score}/{stage.rules.target} • {stage.timeLabel}: {seconds}
+        {stage.secondsSuffix}
       </p>
       <div className={stageStyles.catchArea}>
         <button
-          aria-label={messages.stageUi.catch.heartAriaLabel}
+          aria-label={stage.heartAriaLabel}
           className={stageStyles.catchHeart}
           style={{ left: `${position.x}%`, top: `${position.y}%` }}
           type="button"
@@ -67,9 +82,10 @@ const CatchStage = ({ prompt, target, onComplete, onTap }: CatchStageProps) => {
           ❤
         </button>
       </div>
-      {canFinish && (
-        <button className={screenStyles.primaryButton} type="button" onClick={onComplete}>
-          {messages.stageUi.catch.continueButton}
+      {canRetry && <p className={stageStyles.helperText}>{stage.rules.timeoutPraiseText}</p>}
+      {canRetry && (
+        <button className={screenStyles.primaryButton} type="button" onClick={retryRound}>
+          {stage.rules.retryButtonLabel}
         </button>
       )}
     </div>

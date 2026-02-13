@@ -1,37 +1,47 @@
 import { useMemo, useState } from 'react'
-import { useDictionary } from '../../dictionary'
+import type { PuzzleStage as PuzzleStageConfig } from '../../types/quiz'
 import stageStyles from './StageCommon.module.scss'
 
 type PuzzleStageProps = {
-  prompt: string
-  words: string[]
-  targetPhrase: string
+  stage: PuzzleStageConfig
   onComplete: () => void
   onTap: () => void
 }
 
-const PuzzleStage = ({ prompt, words, targetPhrase, onComplete, onTap }: PuzzleStageProps) => {
-  const { messages } = useDictionary()
+const normalizeValue = (value: string, mode: PuzzleStageConfig['rules']['normalize']) => {
+  if (mode === 'trim_lower') {
+    return value.trim().toLowerCase()
+  }
+
+  return value
+}
+
+const PuzzleStage = ({ stage, onComplete, onTap }: PuzzleStageProps) => {
   const [picked, setPicked] = useState<string[]>([])
-  const [attempts, setAttempts] = useState(0)
+  const [feedback, setFeedback] = useState('')
 
   const available = useMemo(() => {
-    return words.filter((word) => !picked.includes(word))
-  }, [picked, words])
+    return stage.words.filter((word) => !picked.includes(word))
+  }, [picked, stage.words])
 
   const chooseWord = (word: string) => {
     onTap()
     const next = [...picked, word]
     setPicked(next)
 
-    if (next.length === words.length) {
-      const phrase = next.join(' ').trim().toLowerCase()
-      if (phrase === targetPhrase.trim().toLowerCase() || attempts > 0) {
+    if (next.length === stage.words.length) {
+      const phrase = normalizeValue(next.join(' '), stage.rules.normalize)
+      const matches = stage.rules.acceptedPhrases.some((accepted) => {
+        return normalizeValue(accepted, stage.rules.normalize) === phrase
+      })
+
+      if (matches) {
+        setFeedback('')
         onComplete()
         return
       }
 
-      setAttempts((prev) => prev + 1)
+      setFeedback(stage.rules.incorrectMessage)
       window.setTimeout(() => {
         setPicked([])
       }, 500)
@@ -40,8 +50,8 @@ const PuzzleStage = ({ prompt, words, targetPhrase, onComplete, onTap }: PuzzleS
 
   return (
     <div className={stageStyles.stageBody}>
-      <p className={stageStyles.stagePrompt}>{prompt}</p>
-      <p className={stageStyles.puzzleLine}>{picked.join(' ') || messages.stageUi.puzzle.previewPlaceholder}</p>
+      <p className={stageStyles.stagePrompt}>{stage.prompt}</p>
+      <p className={stageStyles.puzzleLine}>{picked.join(' ') || stage.previewPlaceholder}</p>
       <div className={stageStyles.answerGrid}>
         {available.map((word) => (
           <button key={word} className={stageStyles.answerButton} type="button" onClick={() => chooseWord(word)}>
@@ -49,7 +59,7 @@ const PuzzleStage = ({ prompt, words, targetPhrase, onComplete, onTap }: PuzzleS
           </button>
         ))}
       </div>
-      {attempts > 0 && <p className={stageStyles.helperText}>{messages.stageUi.puzzle.helperAfterAttempt}</p>}
+      {feedback && <p className={stageStyles.helperText}>{feedback}</p>}
     </div>
   )
 }

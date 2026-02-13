@@ -1,22 +1,35 @@
-import { useDictionary } from '../dictionary'
 import localStyles from './FinalScreen.module.scss'
 import screenStyles from './shared/ScreenCard.module.scss'
 import ScreenCard from './shared/ScreenCard'
 
 type FinalScreenProps = {
+  badge: string
+  title: string
+  message: string
+  rewardButtonLabel: string
+  rewardLine1: string
+  rewardLine2: string
   hearts: string[]
   onReward: () => void
   rewardOpened: boolean
 }
 
-const FinalScreen = ({ hearts, onReward, rewardOpened }: FinalScreenProps) => {
-  const { messages } = useDictionary()
-
+const FinalScreen = ({
+  badge,
+  title,
+  message,
+  rewardButtonLabel,
+  rewardLine1,
+  rewardLine2,
+  hearts,
+  onReward,
+  rewardOpened,
+}: FinalScreenProps) => {
   return (
     <ScreenCard className={localStyles.finalCard}>
-      <p className={screenStyles.badge}>{messages.final.badge}</p>
-      <h2 className={screenStyles.heading}>{messages.final.title}</h2>
-      <p className={screenStyles.leadText}>{messages.final.message}</p>
+      <p className={screenStyles.badge}>{badge}</p>
+      <h2 className={screenStyles.heading}>{title}</h2>
+      <p className={screenStyles.leadText}>{message}</p>
 
       <div className={localStyles.heartCollection}>
         {hearts.map((heart) => (
@@ -27,13 +40,13 @@ const FinalScreen = ({ hearts, onReward, rewardOpened }: FinalScreenProps) => {
       </div>
 
       <button className={screenStyles.primaryButton} type="button" onClick={onReward}>
-        {messages.final.rewardButton}
+        {rewardButtonLabel}
       </button>
 
       {rewardOpened && (
         <div className={localStyles.rewardBox}>
-          <p>{messages.final.rewardLine1}</p>
-          <p>{messages.final.rewardLine2}</p>
+          <p>{rewardLine1}</p>
+          <p>{rewardLine2}</p>
         </div>
       )}
     </ScreenCard>

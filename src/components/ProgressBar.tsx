@@ -1,15 +1,15 @@
 import { useMemo } from 'react'
-import { useDictionary } from '../dictionary'
 import { createRandomGlassStyle } from './shared/glass'
 import styles from './ProgressBar.module.scss'
 
 type ProgressBarProps = {
   current: number
   total: number
+  ariaLabel: string
+  stageLabel: string
 }
 
-const ProgressBar = ({ current, total }: ProgressBarProps) => {
-  const { messages } = useDictionary()
+const ProgressBar = ({ current, total, ariaLabel, stageLabel }: ProgressBarProps) => {
   const percent = Math.round((current / total) * 100)
   const glassStyle = useMemo(
     () =>
@@ -27,10 +27,10 @@ const ProgressBar = ({ current, total }: ProgressBarProps) => {
   )
 
   return (
-    <div className={styles.progressWrap} style={glassStyle} aria-label={messages.progress.ariaLabel}>
+    <div className={styles.progressWrap} style={glassStyle} aria-label={ariaLabel}>
       <div className={styles.progressLabelRow}>
         <span>
-          {messages.progress.stageLabel} {Math.min(current + 1, total)}/{total}
+          {stageLabel} {Math.min(current + 1, total)}/{total}
         </span>
         <span>{percent}%</span>
       </div>

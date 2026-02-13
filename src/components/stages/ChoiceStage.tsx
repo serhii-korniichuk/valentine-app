@@ -1,42 +1,58 @@
 import { useState } from 'react'
 import classNames from 'classnames'
+import type { ChoiceStage as ChoiceStageConfig } from '../../types/quiz'
 import stageStyles from './StageCommon.module.scss'
 
 type ChoiceStageProps = {
-  prompt: string
-  options: string[]
+  stage: ChoiceStageConfig
   onSelect: () => void
   onTap: () => void
 }
 
-const ChoiceStage = ({ prompt, options, onSelect, onTap }: ChoiceStageProps) => {
+const ChoiceStage = ({ stage, onSelect, onTap }: ChoiceStageProps) => {
   const [selected, setSelected] = useState<string | null>(null)
+  const [feedback, setFeedback] = useState('')
 
-  const handleClick = (option: string) => {
-    setSelected(option)
+  const handleClick = (optionId: string) => {
+    setSelected(optionId)
     onTap()
-    window.setTimeout(() => {
-      onSelect()
-    }, 280)
+
+    if (stage.rules.type === 'any') {
+      window.setTimeout(() => {
+        onSelect()
+      }, 280)
+      return
+    }
+
+    if (optionId === stage.rules.correctOptionId) {
+      setFeedback('')
+      window.setTimeout(() => {
+        onSelect()
+      }, 280)
+      return
+    }
+
+    setFeedback(stage.rules.incorrectMessage)
   }
 
   return (
     <div className={stageStyles.stageBody}>
-      <p className={stageStyles.stagePrompt}>{prompt}</p>
+      <p className={stageStyles.stagePrompt}>{stage.prompt}</p>
       <div className={stageStyles.answerGrid}>
-        {options.map((option) => (
+        {stage.options.map((option) => (
           <button
-            key={option}
+            key={option.id}
             className={classNames(stageStyles.answerButton, {
-              [stageStyles.answerButtonSelected]: selected === option,
+              [stageStyles.answerButtonSelected]: selected === option.id,
             })}
             type="button"
-            onClick={() => handleClick(option)}
+            onClick={() => handleClick(option.id)}
           >
-            {option}
+            {option.label}
           </button>
         ))}
       </div>
+      {feedback && <p className={stageStyles.helperText}>{feedback}</p>}
     </div>
   )
 }

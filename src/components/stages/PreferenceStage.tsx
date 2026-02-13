@@ -1,42 +1,55 @@
 import { useState } from 'react'
 import classNames from 'classnames'
+import type { PreferenceStage as PreferenceStageConfig } from '../../types/quiz'
 import stageStyles from './StageCommon.module.scss'
 
 type PreferenceStageProps = {
-  prompt: string
-  helper: string
-  options: string[]
+  stage: PreferenceStageConfig
   onSelect: () => void
   onTap: () => void
 }
 
-const PreferenceStage = ({ prompt, helper, options, onSelect, onTap }: PreferenceStageProps) => {
+const PreferenceStage = ({ stage, onSelect, onTap }: PreferenceStageProps) => {
   const [selected, setSelected] = useState<string | null>(null)
+  const [feedback, setFeedback] = useState('')
 
-  const handleClick = (option: string) => {
-    setSelected(option)
+  const handleClick = (optionId: string) => {
+    setSelected(optionId)
     onTap()
-    window.setTimeout(() => onSelect(), 280)
+
+    if (stage.rules.type === 'any') {
+      window.setTimeout(() => onSelect(), 280)
+      return
+    }
+
+    if (optionId === stage.rules.correctOptionId) {
+      setFeedback('')
+      window.setTimeout(() => onSelect(), 280)
+      return
+    }
+
+    setFeedback(stage.rules.incorrectMessage)
   }
 
   return (
     <div className={stageStyles.stageBody}>
-      <p className={stageStyles.stagePrompt}>{prompt}</p>
-      <p className={stageStyles.helperText}>{helper}</p>
+      <p className={stageStyles.stagePrompt}>{stage.prompt}</p>
+      <p className={stageStyles.helperText}>{stage.helper}</p>
       <div className={stageStyles.answerGrid}>
-        {options.map((option) => (
+        {stage.options.map((option) => (
           <button
-            key={option}
+            key={option.id}
             className={classNames(stageStyles.answerButton, {
-              [stageStyles.answerButtonSelected]: selected === option,
+              [stageStyles.answerButtonSelected]: selected === option.id,
             })}
             type="button"
-            onClick={() => handleClick(option)}
+            onClick={() => handleClick(option.id)}
           >
-            {option}
+            {option.label}
           </button>
         ))}
       </div>
+      {feedback && <p className={stageStyles.helperText}>{feedback}</p>}
     </div>
   )
 }

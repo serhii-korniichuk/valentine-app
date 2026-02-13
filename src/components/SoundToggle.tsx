@@ -1,14 +1,14 @@
-import { useDictionary } from '../dictionary'
 import styles from './SoundToggle.module.scss'
 
 type SoundToggleProps = {
   enabled: boolean
+  enabledLabel: string
+  disabledLabel: string
   onToggle: () => void
 }
 
-const SoundToggle = ({ enabled, onToggle }: SoundToggleProps) => {
-  const { messages } = useDictionary()
-  const label = enabled ? messages.soundToggle.onLabel : messages.soundToggle.offLabel
+const SoundToggle = ({ enabled, enabledLabel, disabledLabel, onToggle }: SoundToggleProps) => {
+  const label = enabled ? enabledLabel : disabledLabel
 
   return (
     <button aria-label={label} className={styles.soundToggle} title={label} type="button" onClick={onToggle}>
