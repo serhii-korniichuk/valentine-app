@@ -5,11 +5,19 @@
   @include glass.blobs;
 
   width: min(100%, 46rem);
+  max-height: var(--screen-card-max-height, none);
+  display: flex;
+  flex-direction: column;
   animation: cardIn 380ms ease-out;
 }
 
 .content {
   position: relative;
+  min-height: 0;
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   z-index: 1;
   border-radius: 1.25rem;
   padding: clamp(1.15rem, 4vw, 2rem);
