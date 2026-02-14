@@ -3,8 +3,10 @@
   isolation: isolate;
   height: 100%;
   min-height: 100dvh;
-  padding: calc(2rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right))
-    calc(2rem + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left));
+  padding: calc(2rem + env(safe-area-inset-top))
+    calc(1rem + env(safe-area-inset-right))
+    calc(2rem + env(safe-area-inset-bottom))
+    calc(1rem + env(safe-area-inset-left));
   display: grid;
   grid-template-rows: auto auto 1fr;
   gap: 1rem;
@@ -70,6 +72,27 @@
 .isHome {
   grid-template-rows: 1fr;
   place-items: center;
+}
+
+.watermark {
+  position: fixed;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom) + 1rem);
+  transform: translateX(-50%);
+  z-index: 14;
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: rgb(118 73 95 / 0.48);
+  text-decoration: none;
+  transition:
+    opacity 180ms ease,
+    color 180ms ease;
+  opacity: 0.5;
+
+  &:hover {
+    color: rgb(118 73 95 / 0.68);
+    opacity: 1;
+  }
 }
 
 .orientationOverlay {

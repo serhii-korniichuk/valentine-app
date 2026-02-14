@@ -257,6 +257,15 @@ const App = () => {
         />
       )}
 
+      <a
+        className={styles.watermark}
+        href={quizScenario.ui.watermark.repositoryUrl}
+        target="_blank"
+        rel="noreferrer"
+      >
+        {quizScenario.ui.watermark.label}
+      </a>
+
       {isLandscapeBlocked && (
         <div
           className={styles.orientationOverlay}

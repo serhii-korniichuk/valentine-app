@@ -177,6 +177,10 @@ export type QuizScenarioConfig = {
       onLabel: string
       offLabel: string
     }
+    watermark: {
+      label: string
+      repositoryUrl: string
+    }
     orientationOverlay: {
       message: string
     }

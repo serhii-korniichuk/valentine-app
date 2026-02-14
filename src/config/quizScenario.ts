@@ -7,6 +7,10 @@ export const quizScenario: QuizScenarioConfig = {
       onLabel: "Вимкнути звук",
       offLabel: "Увімкнути звук",
     },
+    watermark: {
+      label: "crafted with love",
+      repositoryUrl: "https://github.com/serhii-korniichuk/valentine-app",
+    },
     orientationOverlay: {
       message: "У вертикальному положені завжди краще 😉",
     },
