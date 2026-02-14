@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import classNames from 'classnames'
 import { createRandomGlassStyle } from './shared/glass'
 import styles from './ProgressBar.module.scss'
 
@@ -7,9 +8,18 @@ type ProgressBarProps = {
   total: number
   ariaLabel: string
   stageLabel: string
+  restartLabel?: string
+  onRestart?: () => void
 }
 
-const ProgressBar = ({ current, total, ariaLabel, stageLabel }: ProgressBarProps) => {
+const ProgressBar = ({
+  current,
+  total,
+  ariaLabel,
+  stageLabel,
+  restartLabel,
+  onRestart,
+}: ProgressBarProps) => {
   const percent = Math.round((current / total) * 100)
   const glassStyle = useMemo(
     () =>
@@ -28,15 +38,31 @@ const ProgressBar = ({ current, total, ariaLabel, stageLabel }: ProgressBarProps
 
   return (
     <div className={styles.progressWrap} style={glassStyle} aria-label={ariaLabel}>
-      <div className={styles.progressLabelRow}>
-        <span>
-          {stageLabel} {Math.min(current + 1, total)}/{total}
-        </span>
-        <span>{percent}%</span>
+      <div
+        className={classNames(styles.progressContent, {
+          [styles.progressContentBlurred]: Boolean(onRestart),
+        })}
+      >
+        <div className={styles.progressLabelRow}>
+          <span>
+            {stageLabel} {Math.min(current + 1, total)}/{total}
+          </span>
+          <span>{percent}%</span>
+        </div>
+        <div className={styles.progressTrack}>
+          <div className={styles.progressFill} style={{ width: `${percent}%` }} />
+        </div>
       </div>
-      <div className={styles.progressTrack}>
-        <div className={styles.progressFill} style={{ width: `${percent}%` }} />
-      </div>
+
+      {onRestart && (
+        <button
+          className={styles.progressRestartOverlay}
+          type="button"
+          onClick={onRestart}
+        >
+          {restartLabel}
+        </button>
+      )}
     </div>
   )
 }

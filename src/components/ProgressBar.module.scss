@@ -1,11 +1,26 @@
-@use '../styles/glass' as glass;
+@use "../styles/glass" as glass;
 
 .progressWrap {
   @include glass.surface(1rem, 0.6, 14px);
   @include glass.blobs;
 
+  position: relative;
+  overflow: hidden;
   width: min(100%, 46rem);
   padding: 0.85rem 1rem;
+}
+
+.progressContent {
+  position: relative;
+  z-index: 1;
+  transition:
+    filter 220ms ease,
+    opacity 220ms ease;
+}
+
+.progressContentBlurred {
+  filter: blur(2px);
+  opacity: 0.56;
 }
 
 .progressLabelRow {
@@ -32,6 +47,59 @@
 .progressFill {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--color-progress-fill-start) 0%, var(--color-progress-fill-end) 100%);
+  background: linear-gradient(
+    90deg,
+    var(--color-progress-fill-start) 0%,
+    var(--color-progress-fill-end) 100%
+  );
   transition: width 280ms ease;
+}
+
+.progressRestartOverlay {
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1rem;
+  background: transparent;
+  color: var(--color-button-outline-text);
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  transition: color 180ms ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: calc(1rem - 1px);
+    border: 0;
+    background: rgb(255 255 255 / 0.56);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: -1;
+  }
+
+  &:hover {
+    color: var(--color-stage-prompt);
+  }
+
+  &:hover::before {
+    background: rgb(255 255 255 / 0.64);
+  }
+
+  &:active {
+    background: transparent;
+  }
 }

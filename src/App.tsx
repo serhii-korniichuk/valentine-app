@@ -164,6 +164,15 @@ const App = () => {
     await safePlay("celebration");
   };
 
+  const restartFromProgress = async () => {
+    await safePlay("tap");
+    setMode("home");
+    setCurrentStage(0);
+    setRewardOpened(false);
+    setConfettiTrigger(0);
+    setIsTransitioning(false);
+  };
+
   const currentProgress = mode === "stages" ? currentStage : totalStages;
   const activeHeartSymbol = rewardOpened
     ? heartSymbols.special
@@ -206,6 +215,10 @@ const App = () => {
           total={totalStages}
           ariaLabel={quizScenario.ui.progress.ariaLabel}
           stageLabel={quizScenario.ui.progress.stageLabel}
+          restartLabel={quizScenario.ui.progress.restartLabel}
+          onRestart={
+            mode === "final" && rewardOpened ? restartFromProgress : undefined
+          }
         />
       )}
 
