@@ -2,6 +2,7 @@ import localStyles from './FinalScreen.module.scss'
 import ScreenCard from './shared/ScreenCard'
 import screenStyles from './shared/ScreenCard.module.scss'
 import Button from './shared/Button'
+import { heartSymbols } from '../config/heartSymbols'
 
 type FinalScreenProps = {
   badge: string
@@ -24,10 +25,12 @@ const FinalScreen = ({
   onReward,
   rewardOpened,
 }: FinalScreenProps) => {
+  const titleWithHeart = `${title} ${rewardOpened ? heartSymbols.special : heartSymbols.primary}`
+
   return (
     <ScreenCard className={localStyles.finalCard}>
       <p className={screenStyles.badge}>{badge}</p>
-      <h2 className={screenStyles.heading}>{title}</h2>
+      <h2 className={screenStyles.heading}>{titleWithHeart}</h2>
       <p className={screenStyles.leadText}>{message}</p>
 
       {!rewardOpened && (
