@@ -26,6 +26,14 @@ const DEFAULT_DRAG_DAMPING = 0.42
 const DEFAULT_RELOAD_DELAY = 620
 const TOP_TOLERANCE_PX = 4
 
+const getTopScroll = (shell: HTMLElement | null): number => {
+  const shellScrollTop = shell?.scrollTop ?? 0
+  const documentScrollTop =
+    document.documentElement?.scrollTop ?? document.body?.scrollTop ?? 0
+  const windowScrollY = window.scrollY ?? 0
+  return Math.max(shellScrollTop, documentScrollTop, windowScrollY)
+}
+
 export const usePullToRefresh = (options: UsePullToRefreshOptions = {}): UsePullToRefreshResult => {
   const pullThreshold = options.threshold ?? DEFAULT_THRESHOLD
   const maxPullDistance = options.maxPullDistance ?? DEFAULT_MAX_PULL
@@ -51,7 +59,7 @@ export const usePullToRefresh = (options: UsePullToRefreshOptions = {}): UsePull
     }
 
     const shell = shellRef.current
-    if (!shell || shell.scrollTop > TOP_TOLERANCE_PX) {
+    if (getTopScroll(shell) > TOP_TOLERANCE_PX) {
       pullEligibleRef.current = false
       return
     }
@@ -75,8 +83,7 @@ export const usePullToRefresh = (options: UsePullToRefreshOptions = {}): UsePull
       return
     }
 
-    const shell = shellRef.current
-    if (shell && shell.scrollTop > TOP_TOLERANCE_PX) {
+    if (getTopScroll(shellRef.current) > TOP_TOLERANCE_PX) {
       setPullDistance(0)
       return
     }
