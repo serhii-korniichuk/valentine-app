@@ -24,6 +24,7 @@ const DEFAULT_THRESHOLD = 56
 const DEFAULT_MAX_PULL = 88
 const DEFAULT_DRAG_DAMPING = 0.42
 const DEFAULT_RELOAD_DELAY = 620
+const TOP_TOLERANCE_PX = 4
 
 export const usePullToRefresh = (options: UsePullToRefreshOptions = {}): UsePullToRefreshResult => {
   const pullThreshold = options.threshold ?? DEFAULT_THRESHOLD
@@ -50,7 +51,7 @@ export const usePullToRefresh = (options: UsePullToRefreshOptions = {}): UsePull
     }
 
     const shell = shellRef.current
-    if (!shell || shell.scrollTop > 0) {
+    if (!shell || shell.scrollTop > TOP_TOLERANCE_PX) {
       pullEligibleRef.current = false
       return
     }
@@ -70,6 +71,12 @@ export const usePullToRefresh = (options: UsePullToRefreshOptions = {}): UsePull
 
     const delta = event.clientY - dragStartYRef.current
     if (delta <= 0) {
+      setPullDistance(0)
+      return
+    }
+
+    const shell = shellRef.current
+    if (shell && shell.scrollTop > TOP_TOLERANCE_PX) {
       setPullDistance(0)
       return
     }
