@@ -188,6 +188,7 @@ export type QuizScenarioConfig = {
     progress: {
       ariaLabel: string
       stageLabel: string
+      restartLabel: string
     }
   }
   home: {

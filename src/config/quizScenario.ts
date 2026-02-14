@@ -18,6 +18,7 @@ export const quizScenario: QuizScenarioConfig = {
     progress: {
       ariaLabel: "Прогрес квізу",
       stageLabel: "Етап",
+      restartLabel: "Почати знову",
     },
   },
   home: {
