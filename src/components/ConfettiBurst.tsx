@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import styles from './ConfettiBurst.module.scss'
 
 type ConfettiBurstProps = {
@@ -26,26 +26,14 @@ const createPieces = (seed: number): ConfettiPiece[] => {
 }
 
 const ConfettiBurst = ({ trigger }: ConfettiBurstProps) => {
-  const [visible, setVisible] = useState(false)
   const pieces = useMemo(() => createPieces(trigger), [trigger])
 
-  useEffect(() => {
-    if (trigger === 0) {
-      return
-    }
-
-    setVisible(true)
-    const timeout = window.setTimeout(() => setVisible(false), 1800)
-
-    return () => window.clearTimeout(timeout)
-  }, [trigger])
-
-  if (!visible) {
+  if (trigger === 0) {
     return null
   }
 
   return (
-    <div className={styles.confettiLayer} aria-hidden>
+    <div className={styles.confettiLayer} key={trigger} aria-hidden>
       {pieces.map((piece) => (
         <span
           key={piece.id}

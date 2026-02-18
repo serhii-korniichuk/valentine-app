@@ -16,7 +16,7 @@ import { useSound } from "./hooks/useSound";
 type ViewMode = "home" | "stages" | "final";
 
 const App = () => {
-  const [mode, setMode] = useState<ViewMode>("final");
+  const [mode, setMode] = useState<ViewMode>("home");
   const [currentStage, setCurrentStage] = useState(0);
   const [confettiTrigger, setConfettiTrigger] = useState(0);
   const [rewardOpened, setRewardOpened] = useState(false);
