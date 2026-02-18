@@ -10,7 +10,7 @@ Deployed app: [https://valentine-app-cpv.pages.dev](https://valentine-app-cpv.pa
 
 ## Preview
 
-![Valentine App demo](./docs/demo.webp)
+![Valentine App demo](./docs/demo-short.webp)
 
 ## Technologies
 
