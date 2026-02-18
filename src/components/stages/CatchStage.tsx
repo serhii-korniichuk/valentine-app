@@ -59,13 +59,6 @@ const CatchStage = ({
   const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
-    if (!isCompleted && score >= stage.rules.target) {
-      setIsCompleted(true);
-      onCelebrate();
-    }
-  }, [isCompleted, onCelebrate, score, stage.rules.target]);
-
-  useEffect(() => {
     if (isCompleted || score >= stage.rules.target) {
       return;
     }
@@ -91,11 +84,16 @@ const CatchStage = ({
     }
 
     onTap();
-    setScore((prev) => Math.min(stage.rules.target, prev + 1));
+    const nextScore = Math.min(stage.rules.target, score + 1);
+    setScore(nextScore);
 
-    if (score + 1 < stage.rules.target) {
-      setPosition((prev) => nextPosition(stage, prev));
+    if (nextScore >= stage.rules.target) {
+      setIsCompleted(true);
+      onCelebrate();
+      return;
     }
+
+    setPosition((prev) => nextPosition(stage, prev));
   };
 
   const canRetry =
