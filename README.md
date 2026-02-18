@@ -1,6 +1,16 @@
 # Valentine App
 
-Valentine App is a romantic mini web application designed as a personal Valentine’s Day greeting.
+Valentine App is an interactive romantic PWA built as a personalized Valentine’s Day experience.
+It combines a short story-driven flow with mini-games, smooth animations, and sound effects to
+turn a simple greeting into a playful journey.
+
+## Live Demo
+
+Deployed app: [https://valentine-app-cpv.pages.dev](https://valentine-app-cpv.pages.dev)
+
+## Preview
+
+![Valentine App demo](./docs/demo.gif)
 
 ## Technologies
 
